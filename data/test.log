@@ -1,0 +1,14 @@
+/*C1*/SET SCHEMA SYSTEM_LOBS
+INSERT INTO BLOCKS VALUES(0,2147483647,0)
+COMMIT
+/*C3*/SET SCHEMA PUBLIC
+drop table Utilisateur if exists
+create table Utilisateur (mail varchar(255) not null, nom varchar(255), prenom varchar(255), primary key (mail))
+DISCONNECT
+/*C4*/SET SCHEMA PUBLIC
+drop table Utilisateur if exists
+create table Utilisateur (mail varchar(255) not null, nom varchar(255), prenom varchar(255), primary key (mail))
+INSERT INTO UTILISATEUR VALUES('gora@gmail.com','fall','Gora')
+INSERT INTO UTILISATEUR VALUES('jl@gmail.com','le lec','Jean-Loup')
+COMMIT
+DISCONNECT
