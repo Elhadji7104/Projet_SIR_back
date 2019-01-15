@@ -28,7 +28,7 @@ public class JpaTest {
 			e.printStackTrace();
 		}
 		tx.commit();
- 
+  
 
 		manager.close();
 		EntityManagerHelper.closeEntityManagerFactory();
