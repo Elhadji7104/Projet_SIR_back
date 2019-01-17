@@ -70,7 +70,7 @@ public class Utilisateur {
 		this.listeSondagesCrees = listeSondagesCrees;
 	}
 
-	@ManyToMany(mappedBy="listeUtilisateurs")
+	@ManyToMany()
 	public List<Sondage> getListeSondages() {
 		return listeSondages;
 	}
@@ -78,7 +78,6 @@ public class Utilisateur {
 	public void setListeSondages(List<Sondage> listeSondages) {
 		this.listeSondages = listeSondages;
 	}
-	
 	
 	@Override
 	public String toString() {

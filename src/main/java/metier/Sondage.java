@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Sondage {
@@ -18,7 +19,7 @@ public class Sondage {
 	
 	private String lienWeb;
 	
-	@ManyToOne()
+	
 	private Utilisateur createur;
 	
 	private List<Utilisateur> listeUtilisateurs;
@@ -52,6 +53,7 @@ public class Sondage {
 	public void setLienWeb(String lienWeb) {
 		this.lienWeb = lienWeb;
 	}
+	@ManyToOne()
 	public Utilisateur getCreateur() {
 		return createur;
 	}
@@ -60,7 +62,7 @@ public class Sondage {
 		this.createur = createur;
 	}
 
-	@ManyToMany
+	@ManyToMany(mappedBy="listeSondages")
 	public List<Utilisateur> getListeUtilisateurs() {
 		return listeUtilisateurs;
 	}
@@ -68,7 +70,7 @@ public class Sondage {
 	public void setListeUtilisateurs(List<Utilisateur> listeUtilisateurs) {
 		this.listeUtilisateurs = listeUtilisateurs;
 	}
-
+	@ManyToMany()
 	public List<DateProposee> getListeDatesProposees() {
 		return listeDatesProposees;
 	}

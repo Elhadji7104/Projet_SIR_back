@@ -1,9 +1,15 @@
 package jpa;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 
+import com.mysql.fabric.xmlrpc.base.Data;
+
+import metier.DateProposee;
 import metier.Sondage;
 import metier.Utilisateur;
 
@@ -22,15 +28,28 @@ public class JpaTest {
 		try {
 			Utilisateur u1=new Utilisateur("gora1@gmail.com","fall","Gora"); //test
 			Utilisateur u2=new Utilisateur("jl1@gmail.com","le lec","Jean-Loup");
+			LocalDate  datesond = LocalDate.now();
+			DateProposee dp = new DateProposee(datesond, datesond);
+			DateProposee dp2 = new DateProposee(datesond , datesond );
+
+			manager.persist(dp2);
+			manager.persist(dp);
+
 			
 			Sondage s1=new Sondage("lienWeb",u1);
 			Sondage s2=new Sondage("lienWeb2",u2);
 			Sondage sCreateur=new Sondage("lienWeb3",u1);
 			
+			
+			s2.getListeDatesProposees().add(dp2);
+			s2.getListeDatesProposees().add(dp);
+			
+			
 			u1.getListeSondages().add(s1);
 			u1.getListeSondages().add(s2);
 			
 			u1.getListeSondagesCrees().add(sCreateur);
+			
 			
 			manager.persist(s1);
 			manager.persist(s2);
