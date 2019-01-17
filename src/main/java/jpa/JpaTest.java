@@ -23,6 +23,7 @@ public class JpaTest {
 			Utilisateur u2=new Utilisateur("jl@gmail.com","le lec","Jean-Loup");
 			
 			manager.persist(u1);
+
 			manager.persist(u2);
 		} catch (Exception e) {
 			e.printStackTrace();
