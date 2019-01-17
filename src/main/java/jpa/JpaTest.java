@@ -20,9 +20,6 @@ public class JpaTest {
 
 
 		try {
-			
-			
-			
 			Utilisateur u1=new Utilisateur("gora1@gmail.com","fall","Gora"); //test
 			Utilisateur u2=new Utilisateur("jl1@gmail.com","le lec","Jean-Loup");
 			

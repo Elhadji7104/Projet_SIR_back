@@ -17,7 +17,6 @@ public class Utilisateur {
 	
 	private String prenom;
 	
-	
 	private List<Sondage> listeSondagesCrees=new ArrayList<Sondage>();
 	
 	private List<Sondage> listeSondages=new ArrayList<Sondage>();

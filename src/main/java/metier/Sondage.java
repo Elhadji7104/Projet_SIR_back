@@ -29,7 +29,7 @@ public class Sondage {
 		super();
 		this.lienWeb = lienWeb;
 		this.createur=createur;
-		//listeUtilisateurs=new ArrayList<Utilisateur>();
+		listeUtilisateurs=new ArrayList<Utilisateur>();
 	}
 
 	@Id
@@ -49,6 +49,14 @@ public class Sondage {
 	public void setLienWeb(String lienWeb) {
 		this.lienWeb = lienWeb;
 	}
+	public Utilisateur getCreateur() {
+		return createur;
+	}
+
+	public void setCreateur(Utilisateur createur) {
+		this.createur = createur;
+	}
+
 	@ManyToMany
 	public List<Utilisateur> getListeUtilisateurs() {
 		return listeUtilisateurs;
