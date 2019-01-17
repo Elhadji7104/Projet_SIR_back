@@ -23,6 +23,8 @@ public class Sondage {
 	
 	private List<Utilisateur> listeUtilisateurs;
 
+	private List<DateProposee> listeDatesProposees;
+	
 	public Sondage() {}
 	
 	public Sondage(String lienWeb,Utilisateur createur) {
@@ -30,6 +32,7 @@ public class Sondage {
 		this.lienWeb = lienWeb;
 		this.createur=createur;
 		listeUtilisateurs=new ArrayList<Utilisateur>();
+		listeDatesProposees=new ArrayList<DateProposee>();
 	}
 
 	@Id
@@ -64,6 +67,14 @@ public class Sondage {
 
 	public void setListeUtilisateurs(List<Utilisateur> listeUtilisateurs) {
 		this.listeUtilisateurs = listeUtilisateurs;
+	}
+
+	public List<DateProposee> getListeDatesProposees() {
+		return listeDatesProposees;
+	}
+
+	public void setListeDatesProposees(List<DateProposee> listeDatesProposees) {
+		this.listeDatesProposees = listeDatesProposees;
 	}
 
 	@Override
