@@ -19,7 +19,7 @@ public class JpaTest {
 
 
 		try {
-			Utilisateur u1=new Utilisateur("gora@gmail.com","fall","Gora");
+			Utilisateur u1=new Utilisateur("gora@gmail.com","fall","Gora"); //test
 			Utilisateur u2=new Utilisateur("jl@gmail.com","le lec","Jean-Loup");
 			
 			manager.persist(u1);
