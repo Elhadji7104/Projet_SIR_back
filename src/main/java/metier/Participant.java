@@ -1,5 +1,10 @@
 package metier;
 
-public class Participant {
+import javax.persistence.Entity;
 
+@Entity
+public class Participant extends Utilisateur {
+
+	
+	
 }

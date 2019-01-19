@@ -40,6 +40,7 @@ public class Reunion {
 		this.listeSondages = listeSondages;
 	}
 
+	@OneToMany
 	public List<Participant> getListeParticipants() {
 		return listeParticipants;
 	}

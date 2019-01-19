@@ -31,7 +31,7 @@ public class Utilisateur {
 	private List<PreferenceAlimentaire> listePrefsAlimentaire=new ArrayList<PreferenceAlimentaire>();
 	*/
 	
-	@OneToMany(mappedBy="itulisateurPreferenceAli")
+	@OneToMany(mappedBy="utilisateurPreferenceAli")
 	public List<PreferenceAlimentaire> getListePreferenceAlimentaire() {
 		return listePreferenceAlimentaire;
 	}
@@ -40,7 +40,7 @@ public class Utilisateur {
 		this.listePreferenceAlimentaire = listePreferenceAlimentaire;
 	}
 
-	@OneToMany(mappedBy="ulisateurAlergie")
+	@OneToMany(mappedBy="utilisateurAlergie")
 	public List<Alergie> getListeAlergie() {
 		return listeAlergie;
 	}
