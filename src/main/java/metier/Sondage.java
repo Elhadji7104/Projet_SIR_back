@@ -26,6 +26,18 @@ public class Sondage {
 
 	private List<DateProposee> listeDatesProposees;
 	
+	private Reunion reunionDuSondage;
+	
+	@ManyToOne
+	public Reunion getReunionDuSondage() {
+		return reunionDuSondage;
+	}
+
+	
+	public void setReunionDuSondage(Reunion reunionDuSondage) {
+		this.reunionDuSondage = reunionDuSondage;
+	}
+
 	public Sondage() {}
 	
 	public Sondage(String lienWeb,Utilisateur createur) {

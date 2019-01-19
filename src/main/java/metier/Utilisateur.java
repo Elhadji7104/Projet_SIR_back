@@ -20,12 +20,35 @@ public class Utilisateur {
 	private List<Sondage> listeSondagesCrees=new ArrayList<Sondage>();
 	
 	private List<Sondage> listeSondages=new ArrayList<Sondage>();
+	
+	private List<Alergie> listeAlergie=new ArrayList<Alergie>();
+
+	private List<PreferenceAlimentaire> listePreferenceAlimentaire=new ArrayList<PreferenceAlimentaire>();
+
 	/*
 	private List<Alergie> listeAlergies=new ArrayList<Alergie>();
 	
 	private List<PreferenceAlimentaire> listePrefsAlimentaire=new ArrayList<PreferenceAlimentaire>();
 	*/
 	
+	@OneToMany(mappedBy="itulisateurPreferenceAli")
+	public List<PreferenceAlimentaire> getListePreferenceAlimentaire() {
+		return listePreferenceAlimentaire;
+	}
+
+	public void setListePreferenceAlimentaire(List<PreferenceAlimentaire> listePreferenceAlimentaire) {
+		this.listePreferenceAlimentaire = listePreferenceAlimentaire;
+	}
+
+	@OneToMany(mappedBy="ulisateurAlergie")
+	public List<Alergie> getListeAlergie() {
+		return listeAlergie;
+	}
+
+	public void setListeAlergie(List<Alergie> listeAlergie) {
+		this.listeAlergie = listeAlergie;
+	}
+
 	public Utilisateur() {
 	}
 	
