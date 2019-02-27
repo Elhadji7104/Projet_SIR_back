@@ -7,5 +7,5 @@ import metier.Utilisateur;
 
 public interface UtilisateurDao {
 	List<Utilisateur> getListUtilisateur() throws SQLException;
-	void save(Utilisateur u);
+	Utilisateur save(String mail, String nom, String prenom, String mdp);
 }

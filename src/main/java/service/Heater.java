@@ -4,16 +4,12 @@ public class Heater {
 
 	String power;
 	
-	public Heater(String power) {
-		super();
-		this.power = power;
+	public String getPower() {
+		return power;
 	}
 
-	public Heater() {}
-
-	public void setPower(String string) {
-		// TODO Auto-generated method stub
-		this.power = string;
+	public void setPower(String power) {
+		this.power = power;	
 	}
 
 }

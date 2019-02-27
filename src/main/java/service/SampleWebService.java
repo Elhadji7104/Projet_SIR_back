@@ -8,15 +8,16 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
 
-@Path("/hello")
+@Path("/index")
 public class SampleWebService {
 	@GET
+	@Path("/user")
 	@Produces(MediaType.TEXT_PLAIN)
 	public String sayHello() {
 		return "Hello, how are you?";
 	}
 	@GET
-	@Path("/index")
+	@Path("/accueil")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Index getHome() {
 		Index h = new Index();
@@ -25,8 +26,6 @@ public class SampleWebService {
 		h1.setPower("500w");
 		Heater h2 = new Heater();
 		h2.setPower("600w");
-		h.addDevice(h1);
-		h.addDevice(h2);
 		return h;
 	}
 

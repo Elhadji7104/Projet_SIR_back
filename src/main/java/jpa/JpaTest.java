@@ -26,8 +26,8 @@ public class JpaTest {
 
 
 		try {
-			Utilisateur u1=new Utilisateur("gora1@gmail.com","fall","Gora"); //test
-			Utilisateur u2=new Utilisateur("jl1@gmail.com","le lec","Jean-Loup");
+			Utilisateur u1=new Utilisateur("gora1@gmail2.com","fall","Gora","hhh"); //test
+			Utilisateur u2=new Utilisateur("jl1@gmail2.com","le lec","Jean-Loup","nnnn");
 			Date  datesond =  new Date();
 			DateProposee dp = new DateProposee(datesond, datesond);
 			DateProposee dp2 = new DateProposee(datesond , datesond );

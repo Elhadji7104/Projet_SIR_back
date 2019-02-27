@@ -1,7 +1,10 @@
 package service;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.MatrixParam;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -10,6 +13,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -24,14 +28,27 @@ import daoInterface.UtilisateurDao;
 import jpa.EntityManagerHelper;
 import metier.Utilisateur;
 @Path("/user")
-public class UtilisateurService implements UtilisateurDao {
+public class UtilisateurService {
 
+	UtilisateurDaoImp utilisateurDao = new UtilisateurDaoImp();
 	EntityManager manager = EntityManagerHelper.getEntityManager();
-	EntityTransaction tx = manager.getTransaction();
-	private final static String QUERY_FIND_ELEVES = "SELECT * FROM utilisateur ";
-	private final static String QUERY_FIND_ELEVES_BY_CLASSE = "SELECT * FROM utilisateur WHERE classe = ? ";
-	private UtilisateurDaoImp utilisateur;
+   
+	@POST
+	@Path("/add")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Utilisateur add(@FormParam("mail") String mail,
+			@FormParam("nom") String nom,
+			@FormParam("prenom") String prenom,
+			@FormParam("mdp") String mdp
+			) {
+		return utilisateurDao.save(mail,nom,prenom,mdp);
+	}
 	
+    
+    
+   
+   
 	@GET
 	@Path("{mail}")
 	public Response getUser(@PathParam("mail") String mail,
@@ -41,40 +58,6 @@ public class UtilisateurService implements UtilisateurDao {
 		return null;
 
 	}
-	public List<Utilisateur> findAll() throws SQLException {
-		tx.begin();
-		List<Utilisateur> listesEleves = new ArrayList<Utilisateur>();
-
-
-		ResultSet rset = (ResultSet) manager.createQuery(QUERY_FIND_ELEVES);
-		tx.commit();
-		while (rset.next()) {
-			Utilisateur eleve = rsetToEleve(rset);
-			listesEleves.add(eleve);
-		}
-
-
-		return listesEleves;
-	}
 	
-	private Utilisateur rsetToEleve(ResultSet rset) throws SQLException {
-
-		String email = rset.getString("nom");
-		String nom = rset.getString("nom");
-		String prenom = rset.getString("prenom");
-
-
-		Utilisateur u = new Utilisateur(email, nom, prenom);
-		return u;
-	}
-
-	public List<Utilisateur> getListUtilisateur() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void save(Utilisateur u) {
-		// TODO Auto-generated method stub
-
-	}
+	
 }

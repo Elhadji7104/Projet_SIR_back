@@ -17,6 +17,16 @@ public class Utilisateur {
 	
 	private String prenom;
 	
+	private String mdp;
+	
+	public String getMdp() {
+		return mdp;
+	}
+
+	public void setMdp(String mdp) {
+		this.mdp = mdp;
+	}
+
 	private List<Sondage> listeSondagesCrees=new ArrayList<Sondage>();
 	
 	private List<Sondage> listeSondages=new ArrayList<Sondage>();
@@ -52,11 +62,12 @@ public class Utilisateur {
 	public Utilisateur() {
 	}
 	
-	public Utilisateur(String mail, String nom, String prenom) {
+	public Utilisateur(String mail, String nom, String prenom,String mdp) {
 		super();
 		this.mail = mail;
 		this.nom = nom;
 		this.prenom = prenom;
+		this.mdp = mdp;
 	}
 
 	@Id

@@ -44,9 +44,9 @@ public class UtilisateurDaoImp implements UtilisateurDao {
 		String mail = rset.getString("mail");
 		String nom = rset.getString("nom");
 		String prenom = rset.getString("prenom");
+		String mdp = rset.getString("mdp");
 
-
-		Utilisateur u = new Utilisateur(mail, nom, prenom);
+		Utilisateur u = new Utilisateur(mail, nom, prenom,mdp);
 		return u;
 	}
 
@@ -66,11 +66,6 @@ public class UtilisateurDaoImp implements UtilisateurDao {
 	public void setTx(EntityTransaction tx) {
 		this.tx = tx;
 	}
-	public void save(Utilisateur u) {
-		this.tx.begin();
-		manager.persist(u);
-		this.tx.commit();
-	}
 	public void begin() {
 		tx.begin();
 	}
@@ -89,6 +84,23 @@ public class UtilisateurDaoImp implements UtilisateurDao {
 	public boolean isActive() {
 		return tx.isActive();
 	}
+	//saver un utilisateur
+	public Utilisateur save(String mail, String nom, String prenom, String mdp ) {
+		Utilisateur u = new Utilisateur();
+		u.setMail(mail);
+		u.setNom(nom);
+		u.setPrenom(prenom);
+		u.setMdp(mdp);
+		this.tx.begin();
+		try {		
+			manager.persist(u);
+			this.tx.commit();
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		return u;	
+	}
+	
 	public static void main(String[] args) {
 
 		EntityManager manager = EntityManagerHelper.getEntityManager();
@@ -105,4 +117,6 @@ public class UtilisateurDaoImp implements UtilisateurDao {
 			}
 		}
 	}
+
+	
 }

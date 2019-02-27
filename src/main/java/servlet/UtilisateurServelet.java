@@ -70,7 +70,7 @@ public class UtilisateurServelet extends HttpServlet {
 		utilisateur.setMail(email);
 		utilisateur.setNom(nom);
 		utilisateur.setPrenom(prenom);
-		utilisateurDao.save(utilisateur);
+		//utilisateurDao.save(utilisateur);
 		PrintWriter out = response.getWriter();
 		this.getServletContext().getRequestDispatcher("/index.jsp").forward(request,response);
 	}
