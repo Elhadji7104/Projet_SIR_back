@@ -8,4 +8,5 @@ import metier.Utilisateur;
 public interface UtilisateurDao {
 	List<Utilisateur> getListUtilisateur() throws SQLException;
 	Utilisateur save(String mail, String nom, String prenom, String mdp);
+	Utilisateur getUtilisateurByEmail(String mail);
 }

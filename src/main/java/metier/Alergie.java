@@ -9,10 +9,10 @@ import javax.persistence.ManyToOne;
 public class Alergie {
 
 	private long id;
-	private Utilisateur utilisateurAlergie;
-	public Alergie(Utilisateur ulisateur) {
+	private String libelle;
+	public Alergie(String libelle) {
 		super();
-		this.utilisateurAlergie = ulisateur;
+		this.libelle=libelle;
 	}
 	public Alergie() {}
 	
@@ -26,15 +26,11 @@ public class Alergie {
 		this.id = id;
 	}
 	
-	@ManyToOne
-	public Utilisateur getutilisateurAlergie() {
-		return utilisateurAlergie;
-	}
-	public void setutilisateurAlergie(Utilisateur ulisateur) {
-		this.utilisateurAlergie = ulisateur;
+	public String getLibelle() {
+		return libelle;
 	}
 	
-	
-	
-	
+	public void setLibelle(String libelle) {
+		this.libelle = libelle;
+	}	
 }

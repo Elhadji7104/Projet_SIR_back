@@ -25,6 +25,8 @@ public class UtilisateurDaoImp implements UtilisateurDao {
 	EntityTransaction tx ;
 
 	private final static String QUERY_FIND_ELEVES = "SELECT u FROM Utilisateur  u";
+	private final static String QUERY_FIND_UTILISATEUR_BY_MAIL = "SELECT u FROM Utilisateur u where u.mail = :mail";
+
 
 	public UtilisateurDaoImp() {
 		this.manager = EntityManagerHelper.getEntityManager();
@@ -116,6 +118,14 @@ public class UtilisateurDaoImp implements UtilisateurDao {
 				System.out.println(u.getMail());
 			}
 		}
+	}
+
+	public Utilisateur getUtilisateurByEmail(String mail) {
+		this.tx.begin();
+		Utilisateur utilisateur = new Utilisateur();
+		utilisateur = manager.createQuery(QUERY_FIND_ELEVES);
+		tx.commit();
+		return utilisateur;
 	}
 
 	
