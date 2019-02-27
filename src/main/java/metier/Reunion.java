@@ -13,11 +13,10 @@ public class Reunion {
 
 	private long idReunion;
 	private List<Sondage> listeSondages=new ArrayList<Sondage>();
-	private List<Participant> listeParticipants=new ArrayList<Participant>();
-	public Reunion(List<Sondage> listeSondages, List<Participant> listeParticipants) {
+	private List<Utilisateur> listeUtilisateurs=new ArrayList<Utilisateur>();
+	public Reunion(List<Sondage> listeSondages, List<Utilisateur> listeParticipants) {
 		super();
 		this.listeSondages = listeSondages;
-		this.listeParticipants = listeParticipants;
 	}
 	
 	public Reunion() {}
@@ -41,12 +40,12 @@ public class Reunion {
 	}
 
 	@OneToMany
-	public List<Participant> getListeParticipants() {
-		return listeParticipants;
+	public List<Utilisateur> getListeUtilisateurs() {
+		return listeUtilisateurs;
 	}
 
-	public void setListeParticipants(List<Participant> listeParticipants) {
-		this.listeParticipants = listeParticipants;
+	public void setListeUtilisateurs(List<Utilisateur> listeParticipants) {
+		this.listeUtilisateurs = listeParticipants;
 	}
 	
 	
