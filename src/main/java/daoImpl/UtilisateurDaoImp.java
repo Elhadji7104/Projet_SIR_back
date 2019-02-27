@@ -123,7 +123,7 @@ public class UtilisateurDaoImp implements UtilisateurDao {
 	public Utilisateur getUtilisateurByEmail(String mail) {
 		this.tx.begin();
 		Utilisateur utilisateur = new Utilisateur();
-		utilisateur = manager.createQuery(QUERY_FIND_ELEVES);
+		utilisateur = (Utilisateur) manager.createQuery(QUERY_FIND_ELEVES);
 		tx.commit();
 		return utilisateur;
 	}

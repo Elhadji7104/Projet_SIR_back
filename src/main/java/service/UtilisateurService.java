@@ -1,5 +1,5 @@
 package service;
-
+import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -10,6 +10,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+import java.lang.ProcessBuilder.Redirect;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -22,6 +24,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 
 import com.mysql.fabric.Response;
+import com.sun.jersey.api.Responses;
 
 import daoImpl.UtilisateurDaoImp;
 import daoInterface.UtilisateurDao;
@@ -33,31 +36,29 @@ public class UtilisateurService {
 	UtilisateurDaoImp utilisateurDao = new UtilisateurDaoImp();
 	EntityManager manager = EntityManagerHelper.getEntityManager();
    
+	@GET
+	@Path("/acc")
+	@Produces(MediaType.TEXT_PLAIN)
+	public String sayHello() {
+		return "Hello, how are you?";
+	}
 	@POST
 	@Path("/add")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Utilisateur add(@FormParam("mail") String mail,
+//	@Consumes(MediaType.APPLICATION_JSON)
+//	@Produces(MediaType.APPLICATION_JSON)
+	public void add(@FormParam("mail") String mail,
 			@FormParam("nom") String nom,
 			@FormParam("prenom") String prenom,
 			@FormParam("mdp") String mdp
 			) {
-		return utilisateurDao.save(mail,nom,prenom,mdp);
+		utilisateurDao.save(mail,nom,prenom,mdp);	 
+		//return utilisateurDao.save(mail,nom,prenom,mdp);
+		
 	}
-	
-    
-    
-   
-   
 	@GET
-	@Path("{mail}")
-	public Response getUser(@PathParam("mail") String mail,
-			@MatrixParam("Utilisateur") String author,
-			@MatrixParam("country") String country) {
-
-		return null;
-
-	}
-	
-	
+	@Path("getUuser/{mail}")
+	@Produces({ MediaType.APPLICATION_JSON })
+    public Utilisateur getUuser(@PathParam("mail") String arg0) {
+       return utilisateurDao.getUtilisateurByEmail(arg0);
+    }
 }

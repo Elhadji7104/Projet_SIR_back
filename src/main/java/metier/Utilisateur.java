@@ -50,7 +50,7 @@ public class Utilisateur {
 		this.listePreferenceAlimentaire = listePreferenceAlimentaire;
 	}
 
-	@OneToMany(mappedBy="utilisateurAlergie")
+	@OneToMany()
 	public List<Alergie> getListeAlergie() {
 		return listeAlergie;
 	}
