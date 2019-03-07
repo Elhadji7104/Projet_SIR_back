@@ -1,18 +1,16 @@
 package daoImpl;
 
-import java.sql.ResultSet;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NamedQuery;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceUnit;
-import javax.persistence.Query;
-import javax.transaction.Transactional;
 
-import org.hibernate.Session;
+import javax.transaction.Transactional;
 
 import daoInterface.UtilisateurDao;
 import jpa.EntityManagerHelper;
@@ -23,36 +21,56 @@ public class UtilisateurDaoImp implements UtilisateurDao {
 	@PersistenceContext(unitName="doodle")
 	EntityManager manager ; 
 	EntityTransaction tx ;
-
-	private final static String QUERY_FIND_ELEVES = "SELECT u FROM Utilisateur  u";
-	private final static String QUERY_FIND_UTILISATEUR_BY_MAIL = "SELECT u FROM Utilisateur u where u.mail = :mail";
-
-
+	private final static String QUERY_FIND_ALL_UTILISATEUR = "SELECT u FROM Utilisateur  u";
+	private final static String QUERY_FIND_UTILISATEUR_BY_MAIL = "SELECT u FROM Utilisateur u where u.mail =:mail";
+	
 	public UtilisateurDaoImp() {
 		this.manager = EntityManagerHelper.getEntityManager();
 		this.tx      =  manager.getTransaction();
 	}
-
+	//get liste user
 	public List<Utilisateur> getListUtilisateur() throws SQLException{	
 		this.tx.begin();
 		List<Utilisateur> listesEleves = new ArrayList<Utilisateur>();
-		listesEleves = manager.createQuery(QUERY_FIND_ELEVES).getResultList();
+		listesEleves = manager.createQuery(QUERY_FIND_ALL_UTILISATEUR).getResultList();
 		tx.commit();
 		return listesEleves;
 	}
-
-	private Utilisateur rsetToEleve(ResultSet rset) throws SQLException {
-
-		String mail = rset.getString("mail");
-		String nom = rset.getString("nom");
-		String prenom = rset.getString("prenom");
-		String mdp = rset.getString("mdp");
-
-		Utilisateur u = new Utilisateur(mail, nom, prenom,mdp);
-		return u;
+	//get user 
+	public Utilisateur getUtilisateurByEmail(String mail) {
+		this.tx.begin();
+		Utilisateur utilisateur = new Utilisateur();
+		try {
+			utilisateur =  (Utilisateur) manager.createQuery(QUERY_FIND_UTILISATEUR_BY_MAIL).setParameter("mail", mail).getSingleResult();	
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		tx.commit();
+		return utilisateur;
 	}
-
-
+	//delete user
+	public Utilisateur deleteUser(String mail) {
+		this.tx.begin();
+		Utilisateur utilisateur = new Utilisateur();
+		utilisateur =  (Utilisateur) manager.createQuery(QUERY_FIND_UTILISATEUR_BY_MAIL).setParameter("mail", mail).getSingleResult();
+		tx.commit();
+		manager.remove(utilisateur);
+		this.tx.begin();
+		tx.commit();
+		return utilisateur;
+	}
+	//saver un utilisateur
+		public Utilisateur save( Utilisateur u ) {	
+			this.tx.begin();
+			try {		
+				manager.persist(u);
+				tx.commit();
+			}catch (Exception e) {
+				// TODO: handle exception
+			}
+			manager.close();
+			return u;	
+		}
 	public EntityManager getManager() {
 		return manager;
 	}
@@ -86,22 +104,7 @@ public class UtilisateurDaoImp implements UtilisateurDao {
 	public boolean isActive() {
 		return tx.isActive();
 	}
-	//saver un utilisateur
-	public Utilisateur save(String mail, String nom, String prenom, String mdp ) {
-		Utilisateur u = new Utilisateur();
-		u.setMail(mail);
-		u.setNom(nom);
-		u.setPrenom(prenom);
-		u.setMdp(mdp);
-		this.tx.begin();
-		try {		
-			manager.persist(u);
-			this.tx.commit();
-		}catch (Exception e) {
-			// TODO: handle exception
-		}
-		return u;	
-	}
+	
 	
 	public static void main(String[] args) {
 
@@ -119,14 +122,4 @@ public class UtilisateurDaoImp implements UtilisateurDao {
 			}
 		}
 	}
-
-	public Utilisateur getUtilisateurByEmail(String mail) {
-		this.tx.begin();
-		Utilisateur utilisateur = new Utilisateur();
-		utilisateur = (Utilisateur) manager.createQuery(QUERY_FIND_ELEVES);
-		tx.commit();
-		return utilisateur;
-	}
-
-	
 }

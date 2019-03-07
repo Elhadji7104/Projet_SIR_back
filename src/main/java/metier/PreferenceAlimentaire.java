@@ -9,10 +9,13 @@ import javax.persistence.ManyToOne;
 public class PreferenceAlimentaire {
 
 	private long id;
-	private Utilisateur utilisateurPreferenceAli;
-	public PreferenceAlimentaire(Utilisateur utilisateurPreferenceAli) {
-		super();
-		this.utilisateurPreferenceAli = utilisateurPreferenceAli;
+	private String libelle ;
+	
+	public String getLibelle() {
+		return libelle;
+	}
+	public void setLibelle(String libelle) {
+		this.libelle = libelle;
 	}
 	public PreferenceAlimentaire() {		
 	}
@@ -24,13 +27,4 @@ public class PreferenceAlimentaire {
 	public void setId(long id) {
 		this.id = id;
 	}
-	@ManyToOne
-	public Utilisateur getUtilisateurPreferenceAli() {
-		return utilisateurPreferenceAli;
-	}
-	public void setUtilisateurPreferenceAli(Utilisateur itulisateurPreferenceAli) {
-		this.utilisateurPreferenceAli = itulisateurPreferenceAli;
-	}
-	
-	
 }

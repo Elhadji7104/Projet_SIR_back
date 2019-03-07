@@ -11,6 +11,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 @Entity
 public class Sondage {
 	
@@ -29,6 +32,7 @@ public class Sondage {
 	private Reunion reunionDuSondage;
 	
 	@ManyToOne
+	@JsonIgnore
 	public Reunion getReunionDuSondage() {
 		return reunionDuSondage;
 	}
@@ -66,6 +70,8 @@ public class Sondage {
 		this.lienWeb = lienWeb;
 	}
 	@ManyToOne()
+	@JsonBackReference(value = "sondage_cree")
+	@JsonIgnore
 	public Utilisateur getCreateur() {
 		return createur;
 	}
@@ -75,6 +81,8 @@ public class Sondage {
 	}
 
 	@ManyToMany(mappedBy="listeSondages")
+	//@JsonBackReference(value ="reunion_sondage")
+	@JsonIgnore
 	public List<Utilisateur> getListeUtilisateurs() {
 		return listeUtilisateurs;
 	}
@@ -83,6 +91,7 @@ public class Sondage {
 		this.listeUtilisateurs = listeUtilisateurs;
 	}
 	@ManyToMany()
+	@JsonIgnore
 	public List<DateProposee> getListeDatesProposees() {
 		return listeDatesProposees;
 	}

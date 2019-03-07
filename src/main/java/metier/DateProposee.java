@@ -19,14 +19,14 @@ public class DateProposee {
 	
 	private long  idDate;
 	@Temporal(TemporalType.DATE)
-	private Date  datePaugeDegener;
-	private Date  datePauge;
+	private Date  datePauseDejeuner;
+	private Date  datePause;
 	private List<Sondage> listeSondages = new ArrayList<Sondage>();
 	public DateProposee() {}
 	public DateProposee(Date  datesond2,Date  datesond3) {
 		super();
-		this.datePaugeDegener = datesond2;
-		this.datePauge = datesond3;	
+		this.datePauseDejeuner = datesond2;
+		this.datePause = datesond3;	
 	}
 	@Id
 	@GeneratedValue
@@ -38,17 +38,17 @@ public class DateProposee {
 	}
 	
 	
-	public Date  getDatePaugeDegener() {
-		return datePaugeDegener;
+	public Date  getDatePaueDegjeuner() {
+		return datePauseDejeuner;
 	}
-	public void setDatePaugeDegener(Date  datePaugeDegener) {
-		this.datePaugeDegener = datePaugeDegener;
+	public void setDatePauseDejeuner(Date  datePauseDejeuner) {
+		this.datePauseDejeuner = datePauseDejeuner;
 	}
-	public Date  getDatePauge() {
-		return datePauge;
+	public Date  getDatePause() {
+		return datePause;
 	}
-	public void setDatePauge(Date  datePauge) {
-		this.datePauge = datePauge;
+	public void setDatePauge(Date  datePause) {
+		this.datePause = datePause;
 	}
 	@ManyToMany(mappedBy="listeDatesProposees")
 	public List<Sondage>  getListeSondages() {

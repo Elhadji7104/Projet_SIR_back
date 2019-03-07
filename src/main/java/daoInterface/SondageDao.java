@@ -4,6 +4,7 @@ import java.util.List;
 
 import metier.DateProposee;
 import metier.Reunion;
+import metier.Sondage;
 import metier.Utilisateur;
 
 public interface SondageDao {
@@ -13,6 +14,12 @@ public interface SondageDao {
 	List<Utilisateur> getlisteUtilisateurs();
 
     List<DateProposee> getlisteDatesProposees();
-	
+    
+    List<Sondage> getlisteSondage();
+
 	Reunion getreunionDuSondage();
+	
+	Sondage save(String lienWeb,String mailCreateur);
+	
+	
 }

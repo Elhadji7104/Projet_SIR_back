@@ -3,11 +3,19 @@ package metier;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonManagedReference;
+
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder.Value;
 
 @Entity
 public class Utilisateur {
@@ -41,7 +49,8 @@ public class Utilisateur {
 	private List<PreferenceAlimentaire> listePrefsAlimentaire=new ArrayList<PreferenceAlimentaire>();
 	*/
 	
-	@OneToMany(mappedBy="utilisateurPreferenceAli")
+	@OneToMany()
+	@JsonIgnore
 	public List<PreferenceAlimentaire> getListePreferenceAlimentaire() {
 		return listePreferenceAlimentaire;
 	}
@@ -51,6 +60,7 @@ public class Utilisateur {
 	}
 
 	@OneToMany()
+	@JsonIgnore
 	public List<Alergie> getListeAlergie() {
 		return listeAlergie;
 	}
@@ -95,7 +105,9 @@ public class Utilisateur {
 		this.prenom = prenom;
 	}
 
-	@OneToMany(mappedBy="createur")
+	@OneToMany(mappedBy="createur" ,cascade ={CascadeType.PERSIST,CascadeType.MERGE})
+	@JsonManagedReference(value = "sondage_cree")
+	@JsonIgnore
 	public List<Sondage> getListeSondagesCrees() {
 		return listeSondagesCrees;
 	}
@@ -105,6 +117,7 @@ public class Utilisateur {
 	}
 
 	@ManyToMany()
+	@JsonIgnore
 	public List<Sondage> getListeSondages() {
 		return listeSondages;
 	}
@@ -116,7 +129,5 @@ public class Utilisateur {
 	@Override
 	public String toString() {
 		return "Utilisateur [mail=" + mail + ", nom=" + nom + ", prenom=" + prenom + "]";
-	}
-
-	
+	}	
 }
