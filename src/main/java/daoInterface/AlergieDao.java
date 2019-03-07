@@ -8,5 +8,5 @@ import metier.Utilisateur;
 
 public interface AlergieDao {
 	List<Alergie> getListAlergie() throws SQLException;
-	Alergie save(String libelle);
+	Alergie save(Alergie alergie);
 }
