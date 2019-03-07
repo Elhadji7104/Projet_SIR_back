@@ -19,14 +19,19 @@ public class DateProposee {
 	
 	private long  idDate;
 	@Temporal(TemporalType.DATE)
-	private Date  datePauseDejeuner;
-	private Date  datePause;
+	private Date  dateDebut;
+	private Date  dateFin;	
+	private boolean pauseDej;
 	private List<Sondage> listeSondages = new ArrayList<Sondage>();
 	public DateProposee() {}
+	
 	public DateProposee(Date  datesond2,Date  datesond3) {
 		super();
-		this.datePauseDejeuner = datesond2;
-		this.datePause = datesond3;	
+		this.dateDebut = datesond2;
+		this.dateFin = datesond3;	
+		if(dateDebut.getHours()<12 && dateFin.getHours()>14) {
+			pauseDej=true;
+		}
 	}
 	@Id
 	@GeneratedValue
@@ -38,18 +43,30 @@ public class DateProposee {
 	}
 	
 	
-	public Date  getDatePaueDegjeuner() {
-		return datePauseDejeuner;
+	public Date getDateDebut() {
+		return dateDebut;
 	}
-	public void setDatePauseDejeuner(Date  datePauseDejeuner) {
-		this.datePauseDejeuner = datePauseDejeuner;
+
+	public void setDateDebut(Date dateDebut) {
+		this.dateDebut = dateDebut;
 	}
-	public Date  getDatePause() {
-		return datePause;
+
+	public Date getDateFin() {
+		return dateFin;
 	}
-	public void setDatePauge(Date  datePause) {
-		this.datePause = datePause;
+
+	public void setDateFin(Date dateFin) {
+		this.dateFin = dateFin;
 	}
+
+	public boolean isPauseDej() {
+		return pauseDej;
+	}
+
+	public void setPauseDej(boolean pauseDej) {
+		this.pauseDej = pauseDej;
+	}
+
 	@ManyToMany(mappedBy="listeDatesProposees")
 	public List<Sondage>  getListeSondages() {
 		return listeSondages;

@@ -15,8 +15,6 @@ import javax.persistence.OneToMany;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonManagedReference;
 
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder.Value;
-
 @Entity
 public class Utilisateur {
 	private String mail;
