@@ -1,4 +1,3 @@
-# Template de projet pour le TP SIR en M1 Miage 2019 UniR
 # Projet_SIR
 
 <h2>Le but du projet</h2>
