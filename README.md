@@ -24,7 +24,7 @@ Répondre à un sondage
 <br>
 <br>
 <h2>Les fonctionnalités encore à développer<h2>
-<p>Voir la liste des préférences alimentaires d'un utilisateur<p>
-<p>Voir la liste des alergies d'un utilisateur<p>
-<p>Voir la liste des utilisateurs alergiques à quelque chose<p>
+Voir la liste des préférences alimentaires d'un utilisateur
+Voir la liste des alergies d'un utilisateur
+Voir la liste des utilisateurs alergiques à quelque chose
   
