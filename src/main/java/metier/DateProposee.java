@@ -11,6 +11,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+
 import com.mysql.fabric.xmlrpc.base.Data;
 
 
@@ -33,6 +35,8 @@ public class DateProposee {
 			pauseDej=true;
 		}
 	}
+	
+
 	@Id
 	@GeneratedValue
 	public long  getIdDate() {
@@ -42,23 +46,6 @@ public class DateProposee {
 		this.idDate = idDate;
 	}
 	
-	
-<<<<<<< HEAD
-	
-	public Date getDatePauseDejeuner() {
-		return datePauseDejeuner;
-	}
-	public void setDatePauseDejeuner(Date datePauseDejeuner) {
-		this.datePauseDejeuner = datePauseDejeuner;
-	}
-	public Date getDatePause() {
-		return datePause;
-	}
-	public void setDatePause(Date datePause) {
-		this.datePause = datePause;
-	}
-	@ManyToMany()
-=======
 	public Date getDateDebut() {
 		return dateDebut;
 	}
@@ -84,16 +71,11 @@ public class DateProposee {
 	}
 
 	@ManyToMany(mappedBy="listeDatesProposees")
->>>>>>> 92ec98db26639e77e4b6b171c0220ea24f247f03
+	@JsonBackReference(value="date_sondage")
 	public List<Sondage>  getListeSondages() {
 		return listeSondages;
 	}
 	public void setListeSondages(List listeSondages) {
 		this.listeSondages = listeSondages;
 	}
-	
-	
-	
-	
-
 }

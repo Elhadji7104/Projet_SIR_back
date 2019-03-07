@@ -15,10 +15,7 @@ import javax.persistence.OneToMany;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonManagedReference;
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 92ec98db26639e77e4b6b171c0220ea24f247f03
 @Entity
 public class Utilisateur {
 	private String mail;

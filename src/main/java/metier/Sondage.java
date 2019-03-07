@@ -13,6 +13,7 @@ import javax.persistence.OneToOne;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonManagedReference;
 
 @Entity
 public class Sondage {
@@ -91,6 +92,7 @@ public class Sondage {
 		this.listeUtilisateurs = listeUtilisateurs;
 	}
 	@ManyToMany()
+	@JsonManagedReference(value="date_sondage")
 	@JsonIgnore
 	public List<DateProposee> getListeDatesProposees() {
 		return listeDatesProposees;
