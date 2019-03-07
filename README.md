@@ -15,9 +15,17 @@ Nous pouvons créer des utilisateurs,
 créer un sondage
 chaque création d'un sondage implique la création d'une réunion
 
+Avoir la liste des sondages créées par un utilisateur
+Voir les participants à un sondage
+Voir les dates proposées dans un sondage
+Répondre à un sondage
+
 
 
 <br>
 <br>
 <h2>Les fonctionnalités encore à développer<h2>
-
+Voir la liste des préférences alimentaires d'un utilisateur
+  Voir la liste des alergies d'un utilisateur
+  Voir la liste des utilisateurs alergiques à quelque chose
+  
