@@ -14,6 +14,7 @@ import javax.transaction.Transactional;
 
 import daoInterface.UtilisateurDao;
 import jpa.EntityManagerHelper;
+import metier.PreferenceAlimentaire;
 import metier.Utilisateur;
 
 @Transactional
@@ -40,11 +41,7 @@ public class UtilisateurDaoImp implements UtilisateurDao {
 	public Utilisateur getUtilisateurByEmail(String mail) {
 		this.tx.begin();
 		Utilisateur utilisateur = new Utilisateur();
-		try {
-			utilisateur =  (Utilisateur) manager.createQuery(QUERY_FIND_UTILISATEUR_BY_MAIL).setParameter("mail", mail).getSingleResult();	
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+		utilisateur =  (Utilisateur) manager.createQuery(QUERY_FIND_UTILISATEUR_BY_MAIL).setParameter("mail", mail).getSingleResult();	
 		tx.commit();
 		return utilisateur;
 	}
@@ -68,7 +65,6 @@ public class UtilisateurDaoImp implements UtilisateurDao {
 			}catch (Exception e) {
 				// TODO: handle exception
 			}
-			manager.close();
 			return u;	
 		}
 	public EntityManager getManager() {
@@ -121,5 +117,5 @@ public class UtilisateurDaoImp implements UtilisateurDao {
 				System.out.println(u.getMail());
 			}
 		}
-	}
+	}	
 }

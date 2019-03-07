@@ -30,8 +30,6 @@ import metier.Utilisateur;
 
 @Path("/user")
 public class UtilisateurService {
-
-	EntityManager manager = EntityManagerHelper.getEntityManager();
 	@DELETE
 	@Path("/delete/{mail}")
 	@Consumes(MediaType.APPLICATION_JSON)

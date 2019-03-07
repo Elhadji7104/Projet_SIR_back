@@ -38,19 +38,20 @@ public class DateProposee {
 	}
 	
 	
-	public Date  getDatePaueDegjeuner() {
+	
+	public Date getDatePauseDejeuner() {
 		return datePauseDejeuner;
 	}
-	public void setDatePauseDejeuner(Date  datePauseDejeuner) {
+	public void setDatePauseDejeuner(Date datePauseDejeuner) {
 		this.datePauseDejeuner = datePauseDejeuner;
 	}
-	public Date  getDatePause() {
+	public Date getDatePause() {
 		return datePause;
 	}
-	public void setDatePauge(Date  datePause) {
+	public void setDatePause(Date datePause) {
 		this.datePause = datePause;
 	}
-	@ManyToMany(mappedBy="listeDatesProposees")
+	@ManyToMany()
 	public List<Sondage>  getListeSondages() {
 		return listeSondages;
 	}

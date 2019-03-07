@@ -52,18 +52,14 @@ public class SondageDaoImp implements SondageDao{
 		return null;
 	}
 
-	public Sondage save(String lienWeb, String mailCreateur) {	
-		
-		Sondage s = new Sondage();
+	public Sondage save(Sondage s) {
+		tx.begin();
 		Reunion r = new Reunion();
-		s.setLienWeb(lienWeb);
-		UtilisateurDaoImp u =  new UtilisateurDaoImp();
 		List<Sondage> listeSondage = new ArrayList<Sondage>();
 		listeSondage.add(s);
 		r.setListeSondages(listeSondage);
-		s.setCreateur(u.getUtilisateurByEmail(mailCreateur));
+		s.setCreateur(s.getCreateur());
 		s.setReunionDuSondage(r);
-		tx.begin();
 		try {	
 			manager.persist(r);	
 			manager.persist(s);	

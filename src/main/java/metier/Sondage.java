@@ -81,7 +81,7 @@ public class Sondage {
 	}
 
 	@ManyToMany(mappedBy="listeSondages")
-	//@JsonBackReference(value ="reunion_sondage")
+	@JsonBackReference(value ="reunion_sondage")
 	@JsonIgnore
 	public List<Utilisateur> getListeUtilisateurs() {
 		return listeUtilisateurs;

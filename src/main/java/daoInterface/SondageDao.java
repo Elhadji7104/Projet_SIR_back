@@ -19,7 +19,7 @@ public interface SondageDao {
 
 	Reunion getreunionDuSondage();
 	
-	Sondage save(String lienWeb,String mailCreateur);
+	Sondage save(Sondage s);
 	
 	
 }
