@@ -23,7 +23,7 @@ public class Index implements Serializable {
 
     public Index() {
         for (int i = 0; i < 10; i++) {
-        	Utilisateurs.add(new Utilisateur("Mail " + i, "Nom " + i,"Prenom","Mdp"));
+        	//Utilisateurs.add(new Utilisateur("Mail " + i, "Nom " + i,"Prenom","Mdp"));
         }
     }
     @GET

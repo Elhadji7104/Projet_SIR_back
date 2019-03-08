@@ -23,9 +23,10 @@ public class DateProposee {
 	@Temporal(TemporalType.DATE)
 	private Date  dateDebut;
 	private Date  dateFin;	
+	private Date  dateSondage;
 	private boolean pauseDej;
 	private List<Sondage> listeSondages = new ArrayList<Sondage>();
-	public DateProposee() {}
+	public  DateProposee() {}
 	
 	public DateProposee(Date  datesond2,Date  datesond3) {
 		super();
@@ -61,7 +62,16 @@ public class DateProposee {
 	public void setDateFin(Date dateFin) {
 		this.dateFin = dateFin;
 	}
-
+	public Date getDateSondage() {
+		return dateSondage;
+	}
+	public void addDate(Date date,Date dateDebut,Date dateFin) {
+		
+		
+	}
+	public void setDateSondage(Date dateSondage) {
+		this.dateSondage = dateSondage;
+	}
 	public boolean isPauseDej() {
 		return pauseDej;
 	}

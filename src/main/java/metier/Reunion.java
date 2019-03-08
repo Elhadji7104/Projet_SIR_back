@@ -35,7 +35,7 @@ public class Reunion {
 	}
 	
 	@OneToMany(mappedBy="reunionDuSondage")
-	//@JsonManagedReference(value ="reunion_sondage")
+	@JsonManagedReference(value ="reunion_sondage")
 	@JsonIgnore
 	public List<Sondage> getListeSondages() {
 		return listeSondages;

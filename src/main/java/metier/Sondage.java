@@ -8,21 +8,25 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonManagedReference;
-
 @Entity
+@NamedQueries({ 
+	@NamedQuery(name = "findAllsondage", query = "SELECT s FROM Sondage s"),
+	@NamedQuery(name = "findsondageById", query = "SELECT s FROM Sondage s WHERE s.id = :idSondage")
+})
 public class Sondage {
 	
 	
 	private long idSondage;
 	
 	private String lienWeb;
-	
 	
 	private Utilisateur createur;
 	
@@ -33,6 +37,7 @@ public class Sondage {
 	private Reunion reunionDuSondage;
 	
 	@ManyToOne
+	@JsonManagedReference(value="reunion_sondage")
 	@JsonIgnore
 	public Reunion getReunionDuSondage() {
 		return reunionDuSondage;
@@ -43,16 +48,12 @@ public class Sondage {
 		this.reunionDuSondage = reunionDuSondage;
 	}
 
-	public Sondage() {}
-	
-	public Sondage(String lienWeb,Utilisateur createur) {
-		super();
-		this.lienWeb = lienWeb;
-		this.createur=createur;
+	public Sondage() {
 		listeUtilisateurs=new ArrayList<Utilisateur>();
 		listeDatesProposees=new ArrayList<DateProposee>();
-	}
-
+		reunionDuSondage = new Reunion();
+		}
+	
 	@Id
 	@GeneratedValue
 	public long getIdSondage() {
@@ -72,7 +73,6 @@ public class Sondage {
 	}
 	@ManyToOne()
 	@JsonBackReference(value = "sondage_cree")
-	@JsonIgnore
 	public Utilisateur getCreateur() {
 		return createur;
 	}
@@ -92,7 +92,6 @@ public class Sondage {
 		this.listeUtilisateurs = listeUtilisateurs;
 	}
 	@ManyToMany()
-	@JsonManagedReference(value="date_sondage")
 	@JsonIgnore
 	public List<DateProposee> getListeDatesProposees() {
 		return listeDatesProposees;
@@ -107,8 +106,5 @@ public class Sondage {
 		return "Sondage [idSondage=" + idSondage + ", lienWeb=" + lienWeb;//, listeUtilisateurs=" + listeUtilisateurs
 			//	+ "]";
 	}
-	
-	
-	
 
 }

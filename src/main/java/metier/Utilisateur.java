@@ -2,14 +2,13 @@ package metier;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -25,20 +24,12 @@ public class Utilisateur {
 	private String prenom;
 	
 	private String mdp;
-	
-	public String getMdp() {
-		return mdp;
-	}
 
-	public void setMdp(String mdp) {
-		this.mdp = mdp;
-	}
-
-	private List<Sondage> listeSondagesCrees=new ArrayList<Sondage>();
+	private List<Sondage> listeSondagesCrees;
 	
-	private List<Sondage> listeSondages=new ArrayList<Sondage>();
+	private List<Sondage> listeSondages;
 	
-	private List<Alergie> listeAlergie=new ArrayList<Alergie>();
+	private List<Alergie> listeAlergie;
 
 	private List<PreferenceAlimentaire> listePreferenceAlimentaire=new ArrayList<PreferenceAlimentaire>();
 
@@ -67,16 +58,22 @@ public class Utilisateur {
 	public void setListeAlergie(List<Alergie> listeAlergie) {
 		this.listeAlergie = listeAlergie;
 	}
+	public String getMdp() {
+		return mdp;
+	}
 
-	public Utilisateur() {
+	public void setMdp(String mdp) {
+		this.mdp = mdp;
 	}
 	
-	public Utilisateur(String mail, String nom, String prenom,String mdp) {
-		super();
-		this.mail = mail;
-		this.nom = nom;
-		this.prenom = prenom;
-		this.mdp = mdp;
+	
+
+	public Utilisateur() {
+		listeSondagesCrees=new ArrayList<Sondage>();
+		
+		listeSondages=new ArrayList<Sondage>();
+		
+		listeAlergie=new ArrayList<Alergie>();
 	}
 
 	@Id
@@ -104,9 +101,8 @@ public class Utilisateur {
 		this.prenom = prenom;
 	}
 
-	@OneToMany(mappedBy="createur" ,cascade ={CascadeType.PERSIST,CascadeType.MERGE})
-	@JsonManagedReference(value = "sondage_cree")
-	@JsonIgnore
+	@OneToMany(mappedBy = "createur", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JsonManagedReference(value = "sondage_cree")	
 	public List<Sondage> getListeSondagesCrees() {
 		return listeSondagesCrees;
 	}
@@ -116,6 +112,7 @@ public class Utilisateur {
 	}
 
 	@ManyToMany()
+	@JsonManagedReference(value = "liste_sondage")
 	@JsonIgnore
 	public List<Sondage> getListeSondages() {
 		return listeSondages;
@@ -124,7 +121,13 @@ public class Utilisateur {
 	public void setListeSondages(List<Sondage> listeSondages) {
 		this.listeSondages = listeSondages;
 	}
-	
+	public void addPreference(PreferenceAlimentaire p) {
+		this.listePreferenceAlimentaire.add(p);
+	}
+	public void addSondage(Sondage sondage) {
+		Objects.requireNonNull(sondage, " object not  null");
+		this.listeSondages.add(sondage);
+	}
 	@Override
 	public String toString() {
 		return "Utilisateur [mail=" + mail + ", nom=" + nom + ", prenom=" + prenom + "]";

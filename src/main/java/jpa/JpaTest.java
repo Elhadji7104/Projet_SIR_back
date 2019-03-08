@@ -26,6 +26,7 @@ public class JpaTest {
 
 
 		try {
+			/*
 			Utilisateur u1=new Utilisateur("gora1@gmail2.com","fall","Gora","hhh"); //test
 			Utilisateur u2=new Utilisateur("jl1@gmail2.com","le lec","Jean-Loup","nnnn");
 			Date  datesond =  new Date();
@@ -55,11 +56,11 @@ public class JpaTest {
 			manager.persist(s2);
 			
 			
+		
 			
-			
-			manager.persist(u1);
-			manager.persist(u2);
-			
+			manager.persist();
+			manager.persist();
+				*/
 			
 		} catch (Exception e) {
 			e.printStackTrace();

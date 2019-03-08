@@ -2,6 +2,7 @@ package daoImpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -52,29 +53,27 @@ public class SondageDaoImp implements SondageDao{
 		return null;
 	}
 
-	public Sondage save(Sondage s) {
+	public void save(Sondage s, String mail) {
 		tx.begin();
+		Objects.requireNonNull(s ,"le sondage ne doit pas etre null");
+	    Objects.requireNonNull(mail ,"le  mail ne doit pas etre null");
 		Reunion r = new Reunion();
-		List<Sondage> listeSondage = new ArrayList<Sondage>();
-		listeSondage.add(s);
-		r.setListeSondages(listeSondage);
-		s.setCreateur(s.getCreateur());
 		s.setReunionDuSondage(r);
+		Utilisateur u = manager.find(Utilisateur.class, mail);
+		u.addSondage(s);
+		manager.persist(u);
+		s.setCreateur(u);	
 		try {	
-			manager.persist(r);	
-			manager.persist(s);	
+		//manager.persist(s);	
 			this.tx.commit();
 		}catch (Exception e) {
 			
 		}
-		return s;	
+		System.out.println("Le sondage a été crée!");
 	}
 	public List<Sondage> getlisteSondage() {
 		this.tx.begin();
-		List<Sondage> listeSondages = new ArrayList<Sondage>();
-		listeSondages = manager.createQuery(QUERY_FIND_ALL_SONDAGE).getResultList();
-		tx.commit();
-		return listeSondages;
+		return this.manager.createNamedQuery("findAllsondage", Sondage.class).getResultList();
 	}
 
 	public EntityManager getManager() {

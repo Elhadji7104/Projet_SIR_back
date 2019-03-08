@@ -11,4 +11,5 @@ public interface UtilisateurDao {
 	Utilisateur save(Utilisateur u);
 	Utilisateur getUtilisateurByEmail(String mail);
 	Utilisateur deleteUser(String mail);
+	void addPreferenceAli(PreferenceAlimentaire p,String mail);
 	}

@@ -19,7 +19,6 @@ public interface SondageDao {
 
 	Reunion getreunionDuSondage();
 	
-	Sondage save(Sondage s);
-	
+	void save(Sondage s,String createur);
 	
 }
