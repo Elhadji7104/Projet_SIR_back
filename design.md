@@ -19,8 +19,8 @@ Le projet est divisé en 6 packages:
  - service
       - On utilise le framework jax-rs pour remplacer la couche servlet et créer des urls permettant l'affichage dese données contenues en base (ex: les utilisateurs, les utilisateurs participant à une reunion) 
  - servlet
-      - gf
+      - Les classes présentent dans ce package permettent de créer des sondages et des utilisateurs via servlet. Cela permet également aux utilisateurs de répondre aux sondages.
  - jpa
-      - gf
+      - Ce package contient notamment la classe JpaTest qui va initialiser la BDD.
  
 

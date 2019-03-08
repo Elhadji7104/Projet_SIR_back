@@ -1,4 +1,3 @@
-# Template de projet pour le TP SIR en M1 Miage 2019 UniR
 # Projet_SIR
 
 <h2>Le but du projet</h2>
@@ -10,22 +9,30 @@
 <br>
 <br>
 <h2>Les fonctionnalités supportées</h2>
-<br>
-Nous pouvons créer des utilisateurs, 
-créer un sondage
-chaque création d'un sondage implique la création d'une réunion
+<br></br>
+Nous pouvons créer des utilisateurs.
 
-Avoir la liste des sondages créées par un utilisateur
-Voir les participants à un sondage
-Voir les dates proposées dans un sondage
-Répondre à un sondage
+Créer un sondage. Chaque création d'un sondage implique la création d'une réunion.
 
+Avoir la liste des sondages créées par un utilisateur.
 
+Voir les participants à un sondage.
+
+Voir les dates proposées dans un sondage.
+
+Répondre à un sondage.
 
 <br>
 <br>
 <h2>Les fonctionnalités encore à développer<h2>
-Voir la liste des préférences alimentaires d'un utilisateur
-  Voir la liste des alergies d'un utilisateur
-  Voir la liste des utilisateurs alergiques à quelque chose
+<br>
+Voir la liste des préférences alimentaires d'un utilisateur.
+ 
+Voir la liste des alergies d'un utilisateur.
+
+Voir la liste des utilisateurs alergiques à quelque chose.
   
+<h2> Tests couche service </h2>
+<br>
+pour tester la couche service nous avons utilisé Postman, en effet vous trouverez dans les fichiers l'excécutable nommé "ProjetDoodleSIR.postman_collection".
+ 
