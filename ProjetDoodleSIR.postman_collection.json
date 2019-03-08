@@ -1,0 +1,260 @@
+{
+	"info": {
+		"_postman_id": "e783cf32-7da7-4ce1-b8c9-9674c90b63ca",
+		"name": "ProjetDoodleSIR",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/rest/sondage/allsondage",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n        \"prenom\": \"FALL\",\n        \"nom\": \"dd\",\n        \"mail\": \"ssz@gmail.com\",\n        \"mdp\": \"dd\"\n    }"
+				},
+				"url": {
+					"raw": "http://localhost:8080/rest/sondage/allsondage",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest",
+						"sondage",
+						"allsondage"
+					]
+				},
+				"description": "retourner tous les sondages "
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/rest/user/alluser",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n        \"prenom\": \"FALL\",\n        \"nom\": \"dd\",\n        \"mail\": \"ssz@gmail.com\",\n        \"mdp\": \"dd\"\n    }"
+				},
+				"url": {
+					"raw": "http://localhost:8080/rest/user/alluser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest",
+						"user",
+						"alluser"
+					]
+				},
+				"description": "return tous les utilisateurs"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/rest/user/getUser/gf@gmail.com",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/rest/user/getUser/gf@gmail.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest",
+						"user",
+						"getUser",
+						"gf@gmail.com"
+					]
+				},
+				"description": "prends en paramettre le mail et return les informations du user "
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/rest/user/add",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b77a403e-7923-4d34-8f46-4e78231f82ad",
+						"exec": [
+							"{",
+							"    \"prenom\": \"Elhadji\",",
+							"    \"mdp\": \"ok\",",
+							"    \"nom\": \"FALL\",",
+							"    \"mail\": \"fallgora.egf@gmail.com\"",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"mail\": \"gf@gmail.com\",\n    \"nom\": \"FALL\",\n    \"prenom\": \"Elhadji\",\n    \"mdp\": \"ok\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/rest/user/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest",
+						"user",
+						"add"
+					]
+				},
+				"description": "add utilisateur"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/rest/user/delete/gora1@gmail2.com",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/rest/user/delete/gora1@gmail2.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest",
+						"user",
+						"delete",
+						"gora1@gmail2.com"
+					]
+				},
+				"description": "supprimer user"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/rest/sondage/add",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"lienWeb\":\"www.google.fe\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/rest/sondage/add/gf@gmail.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest",
+						"sondage",
+						"add",
+						"gf@gmail.com"
+					]
+				},
+				"description": "add sondage"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/rest/user/addPreferenceAli/gf@gmail.com",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/javascript",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"libelle\":\"yassa\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/rest/user/addPreferenceAli/gf@gmail.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest",
+						"user",
+						"addPreferenceAli",
+						"gf@gmail.com"
+					]
+				},
+				"description": "ajouter preference alimentaire"
+			},
+			"response": []
+		}
+	]
+}

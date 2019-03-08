@@ -71,15 +71,15 @@ public class UtilisateurDaoImp implements UtilisateurDao {
 	public void addPreferenceAli(PreferenceAlimentaire p,String mail) {
 		tx.begin();
 		Objects.requireNonNull(p ,"preference  not null");
-	    Objects.requireNonNull(mail ,"mail not null");
+		Objects.requireNonNull(mail ,"mail not null");
 		Utilisateur u = manager.find(Utilisateur.class, mail);
 		u.addPreference(p);
 		manager.persist(u);
 		try {	
-		manager.persist(p);	
+			manager.persist(p);	
 			this.tx.commit();
 		}catch (Exception e) {
-			
+
 		}
 		System.out.println("La préférence a été crée!");
 	}
@@ -133,5 +133,5 @@ public class UtilisateurDaoImp implements UtilisateurDao {
 			}
 		}
 	}
-		
+
 }

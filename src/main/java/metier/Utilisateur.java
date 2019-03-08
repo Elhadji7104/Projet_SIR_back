@@ -39,8 +39,8 @@ public class Utilisateur {
 	private List<PreferenceAlimentaire> listePrefsAlimentaire=new ArrayList<PreferenceAlimentaire>();
 	*/
 	
-	@OneToMany()
-	@JsonIgnore
+	@OneToMany(mappedBy = "utilisateur", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JsonManagedReference(value = "utilisateurPreference")	
 	public List<PreferenceAlimentaire> getListePreferenceAlimentaire() {
 		return listePreferenceAlimentaire;
 	}

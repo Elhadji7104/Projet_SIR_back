@@ -58,7 +58,7 @@ public class UtilisateurService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public void addPreference(PreferenceAlimentaire p,@PathParam("mail") String mail) {
-		//System.out.println(mail);
+		System.out.println(mail);
 		UtilisateurDaoImp utilisateurDao = new UtilisateurDaoImp();
 		utilisateurDao.addPreferenceAli(p, mail);
 	}
