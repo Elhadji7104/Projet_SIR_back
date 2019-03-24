@@ -1,26 +1,15 @@
 package service;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-
+import daoImpl.SondageDaoImp;
+import metier.DateProposee;
+import metier.ReponsesSondage;
+import metier.Sondage;
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import daoImpl.SondageDaoImp;
-import daoInterface.SondageDao;
-import metier.DateProposee;
-import metier.Sondage;
-import metier.Utilisateur;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import java.util.Date;
+import java.util.List;
 @JsonAutoDetect
 @JsonIgnoreProperties(ignoreUnknown=true)
 @Path("/sondage")
@@ -38,27 +27,37 @@ public class SondageService {
 		SondageDaoImp sondageDao = new SondageDaoImp();
 		return sondageDao.getlisteSondage();
 	}
+	@GET
+	@Path("/allParticipants/{idSondage}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<ReponsesSondage> getallParticipants(@PathParam("idSondage") Long idSondage) {
+		SondageDaoImp sondageDao = new SondageDaoImp();
+		return sondageDao.getlisteReponse(idSondage);
+	}
 	@POST
 	@Path("/add/{mail}")
+	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void add(Sondage s,@PathParam("mail") String mail) {
+	public Sondage add(Sondage s,@PathParam("mail") String mail) {
 		  SondageDaoImp sondageDao = new SondageDaoImp();
-		  sondageDao.save(s,mail);
+		  return   sondageDao.save(s,mail);
 	}
 	@POST
-	@Path("/repondreAUnSondage/{idSondage}/{mailUser}")
+	@Path("/repondreAUnSondage/{idSondage}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public void participerAUnSondage(@PathParam("idsondage") int idsSondage,@PathParam("mail") String mail,DateProposee p) {
-		  System.out.println();
+	public ReponsesSondage participerAUnSondage(@PathParam("idSondage") Long idSondage, ReponsesSondage r) {
 		  SondageDaoImp sondageDao = new SondageDaoImp();
+		return sondageDao.saveParticipation(idSondage,r);
 	}
 	@POST
-	@Path("/definirDateSondate/{idSondage}/{mailUser}")
+	@Path("/definirDateSondate/{idSondage}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public void adjouterDateSondage(@PathParam("idsondage") int idsSondage,@PathParam("mail") String mail,DateProposee p) {
-		  System.out.println();
-		  SondageDaoImp sondageDao = new SondageDaoImp();
+	public DateProposee ajouterDateSondage(@PathParam("idSondage") Long idsSondage, DateProposee p) {
+		SondageDaoImp sondageDao = new SondageDaoImp();
+		return sondageDao.addDateSondage(idsSondage,p);
 	}
+
 }

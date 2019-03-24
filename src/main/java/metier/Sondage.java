@@ -3,15 +3,7 @@ package metier;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -19,7 +11,7 @@ import org.codehaus.jackson.annotate.JsonManagedReference;
 @Entity
 @NamedQueries({ 
 	@NamedQuery(name = "findAllsondage", query = "SELECT s FROM Sondage s"),
-	@NamedQuery(name = "findsondageById", query = "SELECT s FROM Sondage s WHERE s.id = :idSondage")
+	@NamedQuery(name = "findsondageById", query = "SELECT s FROM Sondage s WHERE s.id = :idSondage"),
 })
 public class Sondage {
 	
@@ -33,7 +25,11 @@ public class Sondage {
 	private List<Utilisateur> listeUtilisateurs;
 
 	private List<DateProposee> listeDatesProposees;
-	
+
+
+
+	private List<ReponsesSondage> listDeReponses;
+
 	private Reunion reunionDuSondage;
 	
 	@ManyToOne
@@ -43,7 +39,15 @@ public class Sondage {
 		return reunionDuSondage;
 	}
 
-	
+	@OneToMany
+	@JsonIgnore
+	public List<ReponsesSondage> getListDeReponses() {
+		return listDeReponses;
+	}
+
+	public void setListDeReponses(List<ReponsesSondage> listDeReponses) {
+		this.listDeReponses = listDeReponses;
+	}
 	public void setReunionDuSondage(Reunion reunionDuSondage) {
 		this.reunionDuSondage = reunionDuSondage;
 	}
@@ -100,11 +104,16 @@ public class Sondage {
 	public void setListeDatesProposees(List<DateProposee> listeDatesProposees) {
 		this.listeDatesProposees = listeDatesProposees;
 	}
-
+	public  void addDateSondate(DateProposee p){
+		this.listeDatesProposees.add(p);
+	}
 	@Override
 	public String toString() {
 		return "Sondage [idSondage=" + idSondage + ", lienWeb=" + lienWeb;//, listeUtilisateurs=" + listeUtilisateurs
 			//	+ "]";
 	}
 
+	public void addReponse(ReponsesSondage r) {
+		this.listDeReponses.add(r);
+	}
 }

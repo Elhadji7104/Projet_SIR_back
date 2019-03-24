@@ -3,10 +3,7 @@ package metier;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonManagedReference;
@@ -33,9 +30,9 @@ public class Reunion {
 	public void setIdReunion(long idReunion) {
 		this.idReunion = idReunion;
 	}
-	
-	@OneToMany(mappedBy="reunionDuSondage")
-	@JsonManagedReference(value ="reunion_sondage")
+
+	@OneToMany(mappedBy="reunionDuSondage" ,cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JsonManagedReference(value = "reunionDuSondage")
 	@JsonIgnore
 	public List<Sondage> getListeSondages() {
 		return listeSondages;

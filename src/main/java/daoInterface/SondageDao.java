@@ -1,11 +1,9 @@
 package daoInterface;
 
+import java.util.Date;
 import java.util.List;
 
-import metier.DateProposee;
-import metier.Reunion;
-import metier.Sondage;
-import metier.Utilisateur;
+import metier.*;
 
 public interface SondageDao {
 
@@ -17,8 +15,13 @@ public interface SondageDao {
     
     List<Sondage> getlisteSondage();
 
+	List<ReponsesSondage> getlisteReponse(Long idSondage);
+
 	Reunion getreunionDuSondage();
 	
-	void save(Sondage s,String createur);
-	
+	Sondage save(Sondage s,String createur);
+
+	DateProposee addDateSondage(Long idSondage,DateProposee p);
+
+	ReponsesSondage saveParticipation(Long idSondage, ReponsesSondage r);
 }

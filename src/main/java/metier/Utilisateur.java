@@ -39,8 +39,8 @@ public class Utilisateur {
 	private List<PreferenceAlimentaire> listePrefsAlimentaire=new ArrayList<PreferenceAlimentaire>();
 	*/
 	
-	@OneToMany(mappedBy = "utilisateur", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	@JsonManagedReference(value = "utilisateurPreference")	
+	@OneToMany()
+	@JsonIgnore
 	public List<PreferenceAlimentaire> getListePreferenceAlimentaire() {
 		return listePreferenceAlimentaire;
 	}
@@ -131,5 +131,9 @@ public class Utilisateur {
 	@Override
 	public String toString() {
 		return "Utilisateur [mail=" + mail + ", nom=" + nom + ", prenom=" + prenom + "]";
-	}	
+	}
+
+	public void addAlergie(Alergie a) {
+		this.listeAlergie.add(a);
+	}
 }

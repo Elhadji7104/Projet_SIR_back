@@ -8,6 +8,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import metier.Alergie;
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
@@ -57,10 +58,19 @@ public class UtilisateurService {
 	@Path("/addPreferenceAli/{mail}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public void addPreference(PreferenceAlimentaire p,@PathParam("mail") String mail) {
+	public PreferenceAlimentaire addPreference(PreferenceAlimentaire p,@PathParam("mail") String mail) {
 		System.out.println(mail);
 		UtilisateurDaoImp utilisateurDao = new UtilisateurDaoImp();
-		utilisateurDao.addPreferenceAli(p, mail);
+		return utilisateurDao.addPreferenceAli(p, mail);
+	}
+	@POST
+	@Path("/addAlergie/{mail}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Alergie addAlergie(Alergie a, @PathParam("mail") String mail) {
+		System.out.println(mail);
+		UtilisateurDaoImp utilisateurDao = new UtilisateurDaoImp();
+		return utilisateurDao.addAlergie(a, mail);
 	}
 	@GET
 	@Path("/getUser/{mail}")

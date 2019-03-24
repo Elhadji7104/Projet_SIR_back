@@ -12,18 +12,6 @@ public class PreferenceAlimentaire {
 
 	private long id;
 	private String libelle ;
-	Utilisateur utilisateur;
-	
-	
-	@ManyToOne
-	@JsonBackReference(value = "utilisateurPreference")
-	public Utilisateur getUtilisateur() {
-		return utilisateur;
-	}
-
-	public void setUtilisateur(Utilisateur utilisateur) {
-		this.utilisateur = utilisateur;
-	}
 
 	public String getLibelle() {
 		return libelle;
