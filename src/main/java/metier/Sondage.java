@@ -11,7 +11,7 @@ import org.codehaus.jackson.annotate.JsonManagedReference;
 @Entity
 @NamedQueries({ 
 	@NamedQuery(name = "findAllsondage", query = "SELECT s FROM Sondage s"),
-	@NamedQuery(name = "findsondageById", query = "SELECT s FROM Sondage s WHERE s.id = :idSondage"),
+	@NamedQuery(name = "findsondageById", query = "SELECT s FROM Sondage s WHERE s.idSondage = :idSondage"),
 })
 public class Sondage {
 	
@@ -27,7 +27,6 @@ public class Sondage {
 	private List<DateProposee> listeDatesProposees;
 
 
-
 	private List<ReponsesSondage> listDeReponses;
 
 	private Reunion reunionDuSondage;
@@ -39,8 +38,8 @@ public class Sondage {
 		return reunionDuSondage;
 	}
 
-	@OneToMany
-	@JsonIgnore
+	@OneToMany(mappedBy ="sondage" ,cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JsonManagedReference(value = "sondage_reponse")
 	public List<ReponsesSondage> getListDeReponses() {
 		return listDeReponses;
 	}
@@ -104,16 +103,17 @@ public class Sondage {
 	public void setListeDatesProposees(List<DateProposee> listeDatesProposees) {
 		this.listeDatesProposees = listeDatesProposees;
 	}
-	public  void addDateSondate(DateProposee p){
+	public  void addDateSondage(DateProposee p){
 		this.listeDatesProposees.add(p);
 	}
+	public void addReponseSondage(ReponsesSondage r) {
+		this.listDeReponses.add(r);
+	}
+
 	@Override
 	public String toString() {
 		return "Sondage [idSondage=" + idSondage + ", lienWeb=" + lienWeb;//, listeUtilisateurs=" + listeUtilisateurs
 			//	+ "]";
 	}
 
-	public void addReponse(ReponsesSondage r) {
-		this.listDeReponses.add(r);
-	}
 }

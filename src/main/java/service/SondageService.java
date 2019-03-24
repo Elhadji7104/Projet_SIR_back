@@ -31,7 +31,7 @@ public class SondageService {
 	@Path("/allParticipants/{idSondage}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<ReponsesSondage> getallParticipants(@PathParam("idSondage") Long idSondage) {
+	public Sondage getallParticipants(@PathParam("idSondage") Long idSondage) {
 		SondageDaoImp sondageDao = new SondageDaoImp();
 		return sondageDao.getlisteReponse(idSondage);
 	}

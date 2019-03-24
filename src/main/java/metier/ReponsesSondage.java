@@ -11,10 +11,8 @@ import java.util.List;
 public class ReponsesSondage {
 
     private long idReponse;
-
-
+    private Sondage sondage;
     private String mail;
-
     public ReponsesSondage(long idReponse) {
         this.idReponse = idReponse;
     }
@@ -28,12 +26,23 @@ public class ReponsesSondage {
     }
     public ReponsesSondage() {}
 
+
     public String getMail() {
         return mail;
     }
 
     public void setMail(String mail) {
         this.mail = mail;
+    }
+
+    @ManyToOne
+    @JsonBackReference(value = "sondage_reponse")
+    public Sondage getSondage() {
+        return sondage;
+    }
+
+    public void setSondage(Sondage sondage) {
+        this.sondage = sondage;
     }
 
 }

@@ -15,7 +15,7 @@ public interface SondageDao {
     
     List<Sondage> getlisteSondage();
 
-	List<ReponsesSondage> getlisteReponse(Long idSondage);
+	Sondage getlisteReponse(Long idSondage);
 
 	Reunion getreunionDuSondage();
 	

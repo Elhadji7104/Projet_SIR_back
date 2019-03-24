@@ -1,14 +1,11 @@
 package daoImpl;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 
 import daoInterface.SondageDao;
 import jpa.EntityManagerHelper;
@@ -27,7 +24,7 @@ public class SondageDaoImp implements SondageDao{
 	private final static String QUERY_FIND_ALL_UTILISATEUR = "SELECT s FROM utilisateur_sondage  s";
 	private final static String QUERY_FIND_UTILISATEUR_SONDAGE_CREATE_MAIL = "SELECT s FROM Sondage s where s.createur_mail =:mail";
 	private final static String QUERY_FIND_ALL_SONDAGE = "SELECT s FROM Sondage  s";
-	private final static String QUERY_ALL_PARTICIPANTS = "SELECT r FROM ReponseSondage r,Sondage s  WHERE s.id = :idSondage and r.idReponse = s.idSondage";
+	private final static String QUERY_ALL_PARTICIPANTS = "SELECT s FROM Sondage s where s.idSondage =:idSondage";
 
 	public Utilisateur getUtilisateur() {
 		// TODO Auto-generated method stub
@@ -78,14 +75,14 @@ public class SondageDaoImp implements SondageDao{
 		Objects.requireNonNull(idSondage ,"le sondage ne doit pas etre null");
 		Objects.requireNonNull(p ,"la date ne doit pas etre null");
 		Sondage s = manager.find(Sondage.class, idSondage);
-		s.addDateSondate(p);
+		s.addDateSondage(p);
 		manager.persist(s);
 		try {
 		 this.manager.persist(p);
 		 this.tx.commit();
 		}catch (Exception e){}
 		System.out.println("la date a été ajouté");
-		return null;
+		return p;
 	}
 
 	@Override
@@ -93,10 +90,10 @@ public class SondageDaoImp implements SondageDao{
 		this.tx.begin();
 		Objects.requireNonNull(idSondage ,"le sondage ne doit pas etre null");
 		Objects.requireNonNull(r ,"la date ne doit pas etre null");
-
 		Sondage s = manager.find(Sondage.class,idSondage);
-		s.addReponse(r);
+		s.addReponseSondage(r);
 		manager.persist(s);
+		r.setSondage(s);
 		try{
 			manager.persist(r);
 			this.tx.commit();
@@ -113,14 +110,13 @@ public class SondageDaoImp implements SondageDao{
 	}
 
 	@Override
-	public List<ReponsesSondage> getlisteReponse(Long idSondage) {
+	public Sondage getlisteReponse(Long idSondage) {
 		this.tx.begin();
 
 		List<ReponsesSondage> list = new ArrayList<>();
-		//list = this.manager.createNamedQuery("allParticipant",ReponsesSondage.class).getResultList();
-		list = manager.createQuery(QUERY_ALL_PARTICIPANTS).getResultList();
-		tx.commit();
-		return list;
+		Sondage s = new Sondage();
+	    s = (Sondage) manager.createQuery(QUERY_ALL_PARTICIPANTS).setParameter("idSondage", idSondage).getSingleResult();
+	    return s;
 	}
 
 	public EntityManager getManager() {

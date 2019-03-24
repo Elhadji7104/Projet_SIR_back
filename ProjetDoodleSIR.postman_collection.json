@@ -105,6 +105,33 @@
 			"response": []
 		},
 		{
+			"name": "http://localhost:8080/rest/sondage/allParticipants/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/rest/sondage/allParticipants/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest",
+						"sondage",
+						"allParticipants",
+						"1"
+					]
+				},
+				"description": "recuper tous les participants a un sondage"
+			},
+			"response": []
+		},
+		{
 			"name": "http://localhost:8080/rest/user/add",
 			"event": [
 				{
@@ -230,7 +257,7 @@
 					{
 						"key": "Content-Type",
 						"name": "Content-Type",
-						"value": "application/javascript",
+						"value": "application/json",
 						"type": "text"
 					}
 				],
@@ -253,6 +280,108 @@
 					]
 				},
 				"description": "ajouter preference alimentaire"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/rest/user/addAlergie/gf@gmail.com",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"libelle\":\"algol\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/rest/user/addAlergie/gf@gmail.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest",
+						"user",
+						"addAlergie",
+						"gf@gmail.com"
+					]
+				},
+				"description": "ajouter alergie a un utilisateur"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/rest/sondage/definirDateSondate/2",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"mail\":\"gf@gmail.com\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/rest/sondage/repondreAUnSondage/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest",
+						"sondage",
+						"repondreAUnSondage",
+						"1"
+					]
+				},
+				"description": "Ajouter des date a un sondage"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/rest/sondage/participerAUnSondage/2",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"mail\":\"gf@gmail.com\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/rest/sondage/repondreAUnSondage/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest",
+						"sondage",
+						"repondreAUnSondage",
+						"1"
+					]
+				},
+				"description": "participer a un sondage "
 			},
 			"response": []
 		}
