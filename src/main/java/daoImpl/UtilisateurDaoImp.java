@@ -91,17 +91,17 @@ public class UtilisateurDaoImp implements UtilisateurDao {
 	}
 	public Utilisateur loginUser(Utilisateur u) {
 		EntityManagerHelper.beginTransaction();
-		manager.find(Utilisateur.class, u);
+		manager.find(Utilisateur.class, u.getMail());
 		String mail =	u.getMail();
 		String mdp  =	u.getMdp();
-		Utilisateur ur = (Utilisateur) manager.createQuery(QUERY_FIND_UTILISATEUR_BY_MAIL_AND_MDP)
+		Object ur = manager.createQuery(QUERY_FIND_UTILISATEUR_BY_MAIL_AND_MDP)
 				.setParameter(
 						"mail", mail)
 				.setParameter("mdp", mdp)
 				.getSingleResult();
 		EntityManagerHelper.commit();
 		EntityManagerHelper.closeEntityManager();
-		return  ur;
+		return (Utilisateur) ur;
 	}
 	//add alergie
 	public Alergie addAlergie(Alergie a, String mail) {

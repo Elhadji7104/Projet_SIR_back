@@ -41,7 +41,7 @@ public class Sondage {
 		return reunionDuSondage;
 	}
 
-	@OneToMany(mappedBy ="sondage" ,cascade = { CascadeType.MERGE })
+	@OneToMany(mappedBy ="sondage" ,fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.ALL})
 	@JsonManagedReference(value = "sondage_reponse")
 	public List<ReponsesSondage> getListDeReponses() {
 		return listDeReponses;
