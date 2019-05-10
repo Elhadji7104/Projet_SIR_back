@@ -4,7 +4,6 @@ package daoImpl;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.transaction.Transactional;
@@ -12,7 +11,6 @@ import daoInterface.UtilisateurDao;
 import jpa.EntityManagerHelper;
 import metier.Alergie;
 import metier.PreferenceAlimentaire;
-import metier.Reunion;
 import metier.Utilisateur;
 
 import static java.util.Objects.requireNonNull;
@@ -20,77 +18,94 @@ import static java.util.Objects.requireNonNull;
 @SuppressWarnings("unchecked")
 @Transactional
 public class UtilisateurDaoImp implements UtilisateurDao {
-	EntityManager manager ; 
-	EntityTransaction tx ;
+	EntityManager manager ;
 	private final static String QUERY_FIND_ALL_UTILISATEUR = "SELECT u FROM Utilisateur  u";
 	private final static String QUERY_FIND_UTILISATEUR_BY_MAIL = "SELECT u FROM Utilisateur u where u.mail =:mail";
+	private final static String QUERY_FIND_UTILISATEUR_BY_MAIL_AND_MDP = "SELECT u FROM Utilisateur u where u.mail =:mail and u.mdp =:mdp ";
 
 	public UtilisateurDaoImp() {
 		this.manager = EntityManagerHelper.getEntityManager();
-		this.tx      =  manager.getTransaction();
 	}
 	//get liste user
-	public List<Utilisateur> getListUtilisateur() throws SQLException{	
-		this.tx.begin();
+	public List<Utilisateur> getListUtilisateur() throws SQLException{
+		EntityManagerHelper.beginTransaction();
 		List listesEleves = new ArrayList<Utilisateur>();
 		listesEleves = manager.createQuery(QUERY_FIND_ALL_UTILISATEUR).getResultList();
-		tx.commit();
+		EntityManagerHelper.commit();
+		EntityManagerHelper.closeEntityManager();
 		return listesEleves;
 	}
 	//get user 
 	public Utilisateur getUtilisateurByEmail(String mail) {
 		requireNonNull(mail, "Ne doit pas être vide");
-		this.tx.begin();
+		EntityManagerHelper.beginTransaction();
 		Utilisateur utilisateur = new Utilisateur();
-		utilisateur =  (Utilisateur) manager.createQuery(QUERY_FIND_UTILISATEUR_BY_MAIL).setParameter("mail", mail).getSingleResult();	
-		tx.commit();
+		utilisateur =  (Utilisateur) manager.createQuery(QUERY_FIND_UTILISATEUR_BY_MAIL).setParameter("mail", mail).getSingleResult();
+		EntityManagerHelper.commit();
+		EntityManagerHelper.closeEntityManager();
+		manager.close();
 		return utilisateur;
 	}
 	//delete user
 	public Utilisateur deleteUser(String mail) {
 		requireNonNull(mail, "Ne doit pas être vide");
-		this.tx.begin();
+		EntityManagerHelper.beginTransaction();
 		Utilisateur utilisateur = new Utilisateur();
 		utilisateur =  (Utilisateur) manager.createQuery(QUERY_FIND_UTILISATEUR_BY_MAIL).setParameter("mail", mail).getSingleResult();
-		tx.commit();
+		EntityManagerHelper.commit();
 		manager.remove(utilisateur);
-		this.tx.begin();
-		tx.commit();
+		EntityManagerHelper.beginTransaction();
+		EntityManagerHelper.commit();
+		EntityManagerHelper.closeEntityManager();
 		return utilisateur;
 	}
 	//saver un utilisateur
 	public Utilisateur save( Utilisateur u ) {	
 		requireNonNull(u, "Ne doit pas être vide");
-		this.tx.begin();
+		EntityManagerHelper.beginTransaction();
 		try {		
 			manager.persist(u);
-			tx.commit();
+			EntityManagerHelper.commit();
 		}catch (Exception e) {
 			// TODO: handle exception
 		}
+		manager.close();
 		return u;	
 	}
 	//add prference alimentaire
 	public PreferenceAlimentaire addPreferenceAli(PreferenceAlimentaire p,String mail) {
-		tx.begin();
+		EntityManagerHelper.beginTransaction();
 		requireNonNull(p ,"preference  not null");
-		requireNonNull(mail ,"mail not null");
+        	requireNonNull(mail ,"mail not null");
 		Utilisateur u = manager.find(Utilisateur.class, mail);
 		u.addPreference(p);
 		manager.persist(u);
-		try {	
-			manager.persist(p);	
-			this.tx.commit();
+		try {
+			manager.persist(p);
+			EntityManagerHelper.commit();
+			EntityManagerHelper.closeEntityManager();
 		}catch (Exception e) {
-
 		}
 		System.out.println("La préférence a été crée!");
 		return  p;
 	}
-
+	public Utilisateur loginUser(Utilisateur u) {
+		EntityManagerHelper.beginTransaction();
+		manager.find(Utilisateur.class, u);
+		String mail =	u.getMail();
+		String mdp  =	u.getMdp();
+		Utilisateur ur = (Utilisateur) manager.createQuery(QUERY_FIND_UTILISATEUR_BY_MAIL_AND_MDP)
+				.setParameter(
+						"mail", mail)
+				.setParameter("mdp", mdp)
+				.getSingleResult();
+		EntityManagerHelper.commit();
+		EntityManagerHelper.closeEntityManager();
+		return  ur;
+	}
 	//add alergie
 	public Alergie addAlergie(Alergie a, String mail) {
-		tx.begin();
+		EntityManagerHelper.beginTransaction();
 		requireNonNull(a ,"Alergie  not null");
 		requireNonNull(mail ,"mail not null");
 		Utilisateur u = manager.find(Utilisateur.class, mail);
@@ -98,7 +113,8 @@ public class UtilisateurDaoImp implements UtilisateurDao {
 		manager.persist(u);
 		try {
 			manager.persist(a);
-			this.tx.commit();
+			EntityManagerHelper.commit();
+			EntityManagerHelper.closeEntityManager();
 		}catch (Exception e) {
 
 		}
@@ -114,31 +130,6 @@ public class UtilisateurDaoImp implements UtilisateurDao {
 		this.manager = manager;
 	}
 
-	public EntityTransaction getTx() {
-		return tx;
-	}
-
-	public void setTx(EntityTransaction tx) {
-		this.tx = tx;
-	}
-	public void begin() {
-		tx.begin();
-	}
-	public void commit() {
-		tx.commit();
-	}
-	public void rollback() {
-		tx.rollback();
-	}
-	public void setRollbackOnly() {
-		tx.setRollbackOnly();
-	}
-	public boolean getRollbackOnly() {
-		return tx.getRollbackOnly();
-	}
-	public boolean isActive() {
-		return tx.isActive();
-	}
 
 
 	public static void main(String[] args) {
@@ -156,5 +147,4 @@ public class UtilisateurDaoImp implements UtilisateurDao {
 			}
 		}
 	}
-
 }

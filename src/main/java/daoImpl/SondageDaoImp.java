@@ -13,18 +13,20 @@ import metier.*;
 
 public class SondageDaoImp implements SondageDao{
 	
-	EntityManager manager;
-	EntityTransaction tx;
+	private EntityManager manager;
+
 	
 	public SondageDaoImp() {
 		super();
 		this.manager = 	EntityManagerHelper.getEntityManager();
-		this.tx      =  manager.getTransaction();
 	}
 	private final static String QUERY_FIND_ALL_UTILISATEUR = "SELECT s FROM utilisateur_sondage  s";
-	private final static String QUERY_FIND_UTILISATEUR_SONDAGE_CREATE_MAIL = "SELECT s FROM Sondage s where s.createur_mail =:mail";
-	private final static String QUERY_FIND_ALL_SONDAGE = "SELECT s FROM Sondage  s";
+	private final static String QUERY_FIND_UTILISATEUR_SONDAGE_CREATE_MAIL = "SELECT s FROM Sondage s where s.createur =:mail";
+
+
+    private final static String QUERY_FIND_ALL_SONDAGE = "SELECT s FROM Sondage  s";
 	private final static String QUERY_ALL_PARTICIPANTS = "SELECT s FROM Sondage s where s.idSondage =:idSondage";
+    private final static String QUERY_ALL_DATEPROPOSEE = "SELECT d FROM DateProposee d where d.sondage.idSondage =:idSondage";
 
 	public Utilisateur getUtilisateur() {
 		// TODO Auto-generated method stub
@@ -32,17 +34,24 @@ public class SondageDaoImp implements SondageDao{
 	}
 
 	public List<Utilisateur> getlisteUtilisateurs() {
-		this.tx.begin();
+		EntityManagerHelper.beginTransaction();
 		List<Utilisateur> listesEleves = new ArrayList<Utilisateur>();
-		listesEleves = manager.createQuery(QUERY_FIND_ALL_SONDAGE).getResultList();
-		tx.commit();
+		listesEleves = this.manager.createQuery(QUERY_FIND_ALL_SONDAGE).getResultList();
+		EntityManagerHelper.commit();
+		EntityManagerHelper.closeEntityManager();
 		return listesEleves;
 	}
 
-	public List<DateProposee> getlisteDatesProposees() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public List<DateProposee> getlisteDatesProposees(Long idSondage) {
+		EntityManagerHelper.beginTransaction();
+        List<DateProposee> listeDates = new ArrayList<>();
+        listeDates = this.manager.createQuery(QUERY_ALL_DATEPROPOSEE).setParameter("idSondage", idSondage).getResultList();
+		EntityManagerHelper.commit();
+		EntityManagerHelper.closeEntityManager();
+        return listeDates;
+    }
+
 
 	public Reunion getreunionDuSondage() {
 		// TODO Auto-generated method stub
@@ -50,19 +59,20 @@ public class SondageDaoImp implements SondageDao{
 	}
 
 	public Sondage save(Sondage s, String mail) {
-		tx.begin();
+		EntityManagerHelper.beginTransaction();
 		Objects.requireNonNull(s ,"le sondage ne doit pas etre null");
 	    Objects.requireNonNull(mail ,"le  mail ne doit pas etre null");
 		Reunion r = new Reunion();
 		s.setReunionDuSondage(r);
-		Utilisateur u = manager.find(Utilisateur.class, mail);
+		Utilisateur u = this.manager.find(Utilisateur.class, mail);
 		u.addSondage(s);
-		manager.persist(r);
-		manager.persist(u);
+		this.manager.persist(r);
+		this.manager.persist(u);
 		s.setCreateur(u);	
 		try {	
-		manager.persist(s);	
-			this.tx.commit();
+		this.manager.persist(s);
+			EntityManagerHelper.commit();
+			EntityManagerHelper.closeEntityManager();
 		}catch (Exception e) {
 			
 		}
@@ -71,52 +81,65 @@ public class SondageDaoImp implements SondageDao{
 
 	@Override
 	public DateProposee addDateSondage(Long idSondage,DateProposee p) {
-		tx.begin();
+		EntityManagerHelper.beginTransaction();
 		Objects.requireNonNull(idSondage ,"le sondage ne doit pas etre null");
 		Objects.requireNonNull(p ,"la date ne doit pas etre null");
-		Sondage s = manager.find(Sondage.class, idSondage);
+		Sondage s = this.manager.find(Sondage.class, idSondage);
 		s.addDateSondage(p);
-		manager.persist(s);
+		this.manager.persist(s);
+		p.setSondage(s);
 		try {
 		 this.manager.persist(p);
-		 this.tx.commit();
+		 EntityManagerHelper.commit();
+		 EntityManagerHelper.closeEntityManager();
 		}catch (Exception e){}
 		System.out.println("la date a été ajouté");
 		return p;
 	}
 
+    public String getIdLasetSondage() {
+		EntityManagerHelper.beginTransaction();
+        return this.manager.createQuery("SELECT  MAX(s.idSondage) FROM Sondage s").getSingleResult().toString();
+	}
 	@Override
-	public ReponsesSondage saveParticipation(Long idSondage,ReponsesSondage r) {
-		this.tx.begin();
+	public ReponsesSondage saveParticipation(Long idSondage,Long idDate,ReponsesSondage r) {
+		EntityManagerHelper.beginTransaction();
 		Objects.requireNonNull(idSondage ,"le sondage ne doit pas etre null");
 		Objects.requireNonNull(r ,"la date ne doit pas etre null");
-		Sondage s = manager.find(Sondage.class,idSondage);
+		Sondage s = this.manager.find(Sondage.class,idSondage);
+		DateProposee d = this.manager.find(DateProposee.class, idDate);
+		this.manager.persist(r);
 		s.addReponseSondage(r);
-		manager.persist(s);
+		r.setDateProposee(d);
 		r.setSondage(s);
 		try{
-			manager.persist(r);
-			this.tx.commit();
+			this.manager.persist(s);
+			this.manager.persist(r);
+			EntityManagerHelper.commit();
+			EntityManagerHelper.closeEntityManager();
 		}catch (Exception e){
 
 		}
 		System.out.println("La participation est bien enregistrée");
 		return r;
 	}
+    @Override
+    public List<Sondage> getlisteSondageByUser(String mail) {
+        Utilisateur u = this.manager.find(Utilisateur.class, mail);
+        return this.manager.createQuery(QUERY_FIND_UTILISATEUR_SONDAGE_CREATE_MAIL).setParameter("mail", u).getResultList();
+    }
 
-	public List<Sondage> getlisteSondage() {
-		this.tx.begin();
+    public List<Sondage> getlisteSondage() {
 		return this.manager.createNamedQuery("findAllsondage", Sondage.class).getResultList();
 	}
 
 	@Override
-	public Sondage getlisteReponse(Long idSondage) {
-		this.tx.begin();
-
+	public List<ReponsesSondage> getlisteReponse(Long idSondage) {
 		List<ReponsesSondage> list = new ArrayList<>();
 		Sondage s = new Sondage();
-	    s = (Sondage) manager.createQuery(QUERY_ALL_PARTICIPANTS).setParameter("idSondage", idSondage).getSingleResult();
-	    return s;
+
+		list =  manager.createQuery(QUERY_ALL_PARTICIPANTS).setParameter("idSondage", idSondage).getResultList();
+	    return list;
 	}
 
 	public EntityManager getManager() {
@@ -127,49 +150,19 @@ public class SondageDaoImp implements SondageDao{
 		this.manager = manager;
 	}
 
-	public EntityTransaction getTx() {
-		return tx;
-	}
-
-	public void setTx(EntityTransaction tx) {
-		this.tx = tx;
-	}
-	public void begin() {
-		tx.begin();
-	}
-	public void commit() {
-		tx.commit();
-	}
-	public void rollback() {
-		tx.rollback();
-	}
-	public void setRollbackOnly() {
-		tx.setRollbackOnly();
-	}
-	public boolean getRollbackOnly() {
-		return tx.getRollbackOnly();
-	}
-	public boolean isActive() {
-		return tx.isActive();
-	}
-	
 	public static void main(String[] args) {
 
 		EntityManager manager = EntityManagerHelper.getEntityManager();
 		EntityTransaction tx = manager.getTransaction();
 
 		if(manager != null) {
-			String d = "SELECT s FROM Sondage as s";
+			String d = "SELECT s FROM DateProposee as s";
 
-			List<Sondage> it = 	manager.createQuery(d).getResultList();
+			List<DateProposee> it = 	manager.createQuery(d).getResultList();
+			for( DateProposee u : it) {
 
-			for( Sondage u : it) {
-
-				System.out.println(u.getLienWeb());
+				System.out.println(u.getDateSondage());
 			}
 		}
 	}
-
-	
-	
 }

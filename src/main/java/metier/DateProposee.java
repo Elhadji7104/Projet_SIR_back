@@ -1,34 +1,31 @@
 package metier;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonManagedReference;
 
 
+@SuppressWarnings("ALL")
 @Entity
 public class DateProposee {
 	
 	private long  idDate;
 	@Temporal(TemporalType.DATE)
-	private Date heureDebut;
-	private Date  heureFin;
+	private String heureDebut;
+	private String heureFin;
 	private Date  dateSondage;
-	private List<Sondage> listeSondages = new ArrayList<Sondage>();
+
+	private List<ReponsesSondage> listDeReponses;
 	public  DateProposee() {}
 	
-	public DateProposee(Date  datesond2,Date  datesond3,Date dateSondage) {
+	public DateProposee(Date dateSondage, String heureDebut,String heureFin) {
 		super();
-		this.heureDebut = datesond2;
-		this.heureFin = datesond3;
+		this.heureDebut = heureDebut;
+		this.heureFin = heureFin;
 		this.dateSondage = dateSondage;
 	}
 	
@@ -41,20 +38,20 @@ public class DateProposee {
 	public void setIdDate(long idDate) {
 		this.idDate = idDate;
 	}
-	
-	public Date getHeureDebut() {
+	private Sondage sondage;
+	public String getHeureDebut() {
 		return heureDebut;
 	}
 
-	public void setHeureDebut(Date heureDebut) {
+	public void setHeureDebut(String heureDebut) {
 		this.heureDebut = heureDebut;
 	}
 
-	public Date getHeureFin() {
+	public String getHeureFin() {
 		return heureFin;
 	}
 
-	public void setHeureFin(Date dateFin) {
+	public void setHeureFin(String dateFin) {
 		this.heureFin = dateFin;
 	}
 	public Date getDateSondage() {
@@ -66,12 +63,23 @@ public class DateProposee {
 		this.dateSondage = dateSondage;
 	}
 
-	@ManyToMany(mappedBy="listeDatesProposees")
-	@JsonBackReference(value="date_sondage")
-	public List<Sondage>  getListeSondages() {
-		return listeSondages;
+	@ManyToOne
+	@JsonBackReference(value="sondage_dateproposee")
+	public Sondage getSondage() {
+		return sondage;
 	}
-	public void setListeSondages(List listeSondages) {
-		this.listeSondages = listeSondages;
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy ="dateProposee" ,cascade = { CascadeType.PERSIST, CascadeType.ALL })
+	@JsonManagedReference(value = "date_proposee")
+	public List<ReponsesSondage> getListDeReponses() {
+		return listDeReponses;
+	}
+
+
+	public void setListDeReponses(List<ReponsesSondage> listDeReponses) {
+		this.listDeReponses = listDeReponses;
+	}
+	public void setSondage(Sondage sondage) {
+		this.sondage = sondage;
 	}
 }

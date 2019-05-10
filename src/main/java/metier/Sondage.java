@@ -11,6 +11,7 @@ import org.codehaus.jackson.annotate.JsonManagedReference;
 @Entity
 @NamedQueries({ 
 	@NamedQuery(name = "findAllsondage", query = "SELECT s FROM Sondage s"),
+	@NamedQuery(name = "findAllsondageByUser", query = "SELECT s FROM Sondage s where s.createur = :mail"),
 	@NamedQuery(name = "findsondageById", query = "SELECT s FROM Sondage s WHERE s.idSondage = :idSondage"),
 })
 public class Sondage {
@@ -23,6 +24,8 @@ public class Sondage {
 	private Utilisateur createur;
 	
 	private List<Utilisateur> listeUtilisateurs;
+
+
 
 	private List<DateProposee> listeDatesProposees;
 
@@ -38,7 +41,7 @@ public class Sondage {
 		return reunionDuSondage;
 	}
 
-	@OneToMany(mappedBy ="sondage" ,cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@OneToMany(mappedBy ="sondage" ,cascade = { CascadeType.MERGE })
 	@JsonManagedReference(value = "sondage_reponse")
 	public List<ReponsesSondage> getListDeReponses() {
 		return listDeReponses;
@@ -94,9 +97,10 @@ public class Sondage {
 	public void setListeUtilisateurs(List<Utilisateur> listeUtilisateurs) {
 		this.listeUtilisateurs = listeUtilisateurs;
 	}
-	@ManyToMany()
-	@JsonIgnore
-	public List<DateProposee> getListeDatesProposees() {
+
+	@OneToMany(mappedBy ="sondage" ,cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JsonManagedReference(value = "sondage_dateproposee")
+	private List<DateProposee> getListeDatesProposees() {
 		return listeDatesProposees;
 	}
 

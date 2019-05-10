@@ -48,7 +48,6 @@ public class UtilisateurService {
 	@POST
 	@Path("/add")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
 	public Utilisateur add(Utilisateur u) {
 		//System.out.println(mail);
 		UtilisateurDaoImp utilisateurDao = new UtilisateurDaoImp();
@@ -57,7 +56,6 @@ public class UtilisateurService {
 	@POST
 	@Path("/addPreferenceAli/{mail}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
 	public PreferenceAlimentaire addPreference(PreferenceAlimentaire p,@PathParam("mail") String mail) {
 		System.out.println(mail);
 		UtilisateurDaoImp utilisateurDao = new UtilisateurDaoImp();
@@ -80,5 +78,13 @@ public class UtilisateurService {
 		System.out.print(mail);
 		UtilisateurDaoImp utilisateurDao = new UtilisateurDaoImp();
 		return utilisateurDao.getUtilisateurByEmail(mail);
+	}
+	@GET
+	@Path("/login")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Utilisateur getUser(Utilisateur u) {
+		UtilisateurDaoImp utilisateurDao = new UtilisateurDaoImp();
+		return utilisateurDao.loginUser(u);
 	}
 }

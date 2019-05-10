@@ -27,29 +27,51 @@ public class SondageService {
 		SondageDaoImp sondageDao = new SondageDaoImp();
 		return sondageDao.getlisteSondage();
 	}
+    @GET
+    @Path("/allsondageByUse/{mail}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Sondage> getallsondageByUser(@PathParam("mail") String mail) {
+        SondageDaoImp sondageDao = new SondageDaoImp();
+        return sondageDao.getlisteSondageByUser(mail);
+    }
+    @GET
+	@Path("/getIdSondage")
+	//@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String getIdSondage()
+	{
+		SondageDaoImp sondageDao = new SondageDaoImp();
+		return sondageDao.getIdLasetSondage();
+	}
 	@GET
 	@Path("/allParticipants/{idSondage}")
-	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Sondage getallParticipants(@PathParam("idSondage") Long idSondage) {
+	public List<ReponsesSondage> getallParticipants(@PathParam("idSondage") Long idSondage) {
 		SondageDaoImp sondageDao = new SondageDaoImp();
 		return sondageDao.getlisteReponse(idSondage);
 	}
+	@GET
+	@Path("/allDateProposee/{idSondage}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<DateProposee> getallDateProposee(@PathParam("idSondage") Long idSondage) {
+		SondageDaoImp sondageDao = new SondageDaoImp();
+		return sondageDao.getlisteDatesProposees(idSondage);
+	}
 	@POST
 	@Path("/add/{mail}")
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Sondage add(Sondage s,@PathParam("mail") String mail) {
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Sondage add(Sondage s,@PathParam("mail") String mail) {
 		  SondageDaoImp sondageDao = new SondageDaoImp();
 		  return   sondageDao.save(s,mail);
 	}
 	@POST
-	@Path("/repondreAUnSondage/{idSondage}")
+	@Path("/repondreAUnSondage/{idSondage}/{idDate}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public ReponsesSondage participerAUnSondage(@PathParam("idSondage") Long idSondage, ReponsesSondage r) {
+    @Produces(MediaType.APPLICATION_JSON)
+	public ReponsesSondage participerAUnSondage(@PathParam("idSondage") Long idSondage,@PathParam("idDate") Long idDate, ReponsesSondage r) {
 		  SondageDaoImp sondageDao = new SondageDaoImp();
-		return sondageDao.saveParticipation(idSondage,r);
+		return sondageDao.saveParticipation(idSondage,idDate,r);
 	}
 	@POST
 	@Path("/definirDateSondate/{idSondage}")

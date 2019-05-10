@@ -12,10 +12,8 @@ public class ReponsesSondage {
 
     private long idReponse;
     private Sondage sondage;
+    private DateProposee dateProposee;
     private String mail;
-    public ReponsesSondage(long idReponse) {
-        this.idReponse = idReponse;
-    }
     @Id
     @GeneratedValue
     public long getIdReponse() {
@@ -45,4 +43,12 @@ public class ReponsesSondage {
         this.sondage = sondage;
     }
 
+    @ManyToOne
+    @JsonBackReference(value = "date_proposee")
+    public DateProposee getDateProposee() {
+        return dateProposee;
+    }
+    public void setDateProposee(DateProposee dateProposee) {
+        this.dateProposee = dateProposee;
+    }
 }
