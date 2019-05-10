@@ -34,5 +34,5 @@ Voir la liste des utilisateurs alergiques à quelque chose.
   
 <h2> Tests couche service </h2>
 <br>
-pour tester la couche service nous avons utilisé Postman, en effet vous trouverez dans les fichiers l'excécutable nommé "ProjetDoodleSIR.postman_collection".
+pour tester la couche service nous avons utilisé Postman, en effet vous trouverez dans les fichiers l'excécutable nommé "ProjetDoodleSIR.postman_collection". qui  se  trouve dans le dossier documentation. 
  
