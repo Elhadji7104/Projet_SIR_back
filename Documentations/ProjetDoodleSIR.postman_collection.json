@@ -365,10 +365,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"mail\":\"gf@gmail.com\"\n}"
+					"raw": "{\n\t\"mail\":\"jjll@gmail.com\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/rest/sondage/repondreAUnSondage/1",
+					"raw": "http://localhost:8080/rest/sondage/repondreAUnSondage/5/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -378,10 +378,121 @@
 						"rest",
 						"sondage",
 						"repondreAUnSondage",
+						"5",
 						"1"
 					]
 				},
 				"description": "participer a un sondage "
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/rest/sondage/allsondageByUse/fallgora.egf@gmail.com",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/rest/sondage/allsondageByUse/fallgora.egf@gmail.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest",
+						"sondage",
+						"allsondageByUse",
+						"fallgora.egf@gmail.com"
+					]
+				},
+				"description": "get sondage creer par user"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/rest/sondage/getIdSondage\n",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/rest/sondage/getIdSondage",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest",
+						"sondage",
+						"getIdSondage"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/rest/sondage/allDateProposee/23",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/rest/sondage/allDateProposee/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest",
+						"sondage",
+						"allDateProposee",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/rest/user/login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"mail\": \"fallgora.egf@gmail.com\",\n    \"mdp\": \"passer\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/rest/user/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest",
+						"user",
+						"login"
+					]
+				}
 			},
 			"response": []
 		}

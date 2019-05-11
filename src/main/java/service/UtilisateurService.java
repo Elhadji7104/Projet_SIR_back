@@ -1,24 +1,16 @@
 package service;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-
+import daoImpl.UtilisateurDaoImp;
 import metier.Alergie;
+import metier.PreferenceAlimentaire;
+
+import metier.Utilisateur;
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
-import daoImpl.UtilisateurDaoImp;
-
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import java.sql.SQLException;
 import java.util.List;
-
-import metier.PreferenceAlimentaire;
-import metier.Utilisateur;
 @JsonAutoDetect
 @JsonIgnoreProperties(ignoreUnknown=true)
 @Path("/user")
@@ -79,7 +71,7 @@ public class UtilisateurService {
 		UtilisateurDaoImp utilisateurDao = new UtilisateurDaoImp();
 		return utilisateurDao.getUtilisateurByEmail(mail);
 	}
-	@GET
+	@POST
 	@Path("/login")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
